@@ -2,6 +2,7 @@ package main
 
 import (
 	"myBlogServer/v1/dao"
+	"myBlogServer/v1/middleware"
 	"myBlogServer/v1/router"
 	"myBlogServer/v1/util"
 
@@ -15,10 +16,12 @@ func main() {
 	dao.ConnectMysql()
 	// 初始化数据模型
 	dao.InitModel()
+	// 初始化全局错误翻译（针对校验库）
+	util.InitTrans()
 	// 初始化gin
 	r := gin.Default()
 	// 注册中间件
-	r.Use()
+	r.Use(middleware.Cors())
 	// 注册路由
 	r = router.RegistRouters(r)
 	// 启用

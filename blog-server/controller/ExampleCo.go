@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Pong(ctx *gin.Context) {
+type ExampleCo struct{}
+
+func (e ExampleCo) Pong(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"msg": "pong"})
 }
