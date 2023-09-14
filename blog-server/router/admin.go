@@ -6,12 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AdminRouter(r *gin.Engine) *gin.Engine {
-	adminco := new(controller.AdminCo)
+func AdminRouter(r *gin.Engine, c *controller.BlogCo) *gin.Engine {
 	admin := r.Group("/admin/")
 
 	{
-		admin.POST("regist", adminco.Regist)
+		admin.POST("regist", c.Admin.Regist)
+		admin.POST("login", c.Admin.Login)
 	}
 	return r
 }

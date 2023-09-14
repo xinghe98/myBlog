@@ -44,3 +44,29 @@ func Sigup(ctx *gin.Context) {
 	}
 	httpresp.ResOK(ctx, "注册成功")
 }
+
+// 登录并发放token
+func Login(ctx *gin.Context) {
+	var postuser models.User
+	ctx.BindJSON(&postuser)
+	var user models.User
+	dao.DB.Where("username=?", postuser.UserName).First(&user)
+	if user.UserName == "" {
+		httpresp.ResOthers(ctx, http.StatusUnprocessableEntity, nil, "用户不存在")
+		return
+	}
+	err := bcrypt.CompareHashAndPassword([]byte(user.PassWord), []byte(postuser.PassWord))
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadRequest, nil, "密码错误")
+		return
+	}
+	// 给个token
+	fmt.Println(user.Roles)
+	token, err := util.GenToken(user.UserName, user.Roles, user.ID)
+	if err != nil {
+		fmt.Println(err)
+		httpresp.ResOthers(ctx, http.StatusBadGateway, err, "服务器错误")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"JwtToen": token})
+}

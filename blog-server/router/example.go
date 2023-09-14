@@ -6,11 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ExampleRouter(r *gin.Engine) *gin.Engine {
-	coEx := new(controller.ExampleCo)
+func ExampleRouter(r *gin.Engine, c *controller.BlogCo) *gin.Engine {
 	admin := r.Group("/test/")
 	{
-		admin.GET("ping", coEx.Pong)
+		admin.GET("ping", c.Example.Pong)
 	}
 	return r
 }
