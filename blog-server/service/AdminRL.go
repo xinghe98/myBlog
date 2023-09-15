@@ -1,5 +1,7 @@
 package service
 
+// 登录注册等操作
+
 import (
 	"encoding/json"
 	"fmt"
@@ -14,7 +16,10 @@ import (
 	"gorm.io/gorm"
 )
 
-func Sigup(ctx *gin.Context) {
+type AdminRL struct{}
+
+// 注册
+func (a *AdminRL) Sigup(ctx *gin.Context) {
 	var user models.User
 	err := ctx.ShouldBindJSON(&user)
 	if err != nil {
@@ -46,7 +51,7 @@ func Sigup(ctx *gin.Context) {
 }
 
 // 登录并发放token
-func Login(ctx *gin.Context) {
+func (a *AdminRL) Login(ctx *gin.Context) {
 	var postuser models.User
 	ctx.BindJSON(&postuser)
 	var user models.User
