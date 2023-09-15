@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from "node:url";
+import { fileURLToPath, URL } from "url";
 import viteCompression from "vite-plugin-compression";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -23,7 +23,7 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  server: {
+  /* server: {
     proxy: {
       // 字符串简写写法
       // 选项写法
@@ -33,7 +33,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
-  },
+  }, */
   build: {
     assetsDir: "./static",
     chunkSizeWarningLimit: 500,
@@ -61,6 +61,5 @@ export default defineConfig({
         },
       },
     },
-    brotliSize: false,
   },
 });
