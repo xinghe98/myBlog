@@ -66,8 +66,8 @@ func (a *AdminRL) Login(ctx *gin.Context) {
 		return
 	}
 	// 给个token
-	fmt.Println(user.Roles)
-	token, err := util.GenToken(user.UserName, user.Roles, user.ID)
+	ip := ctx.ClientIP()
+	token, err := util.GenToken(user.UserName, user.Roles, user.ID, ip)
 	if err != nil {
 		fmt.Println(err)
 		httpresp.ResOthers(ctx, http.StatusBadGateway, err, "服务器错误")

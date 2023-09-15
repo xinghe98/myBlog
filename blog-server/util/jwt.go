@@ -11,17 +11,20 @@ type Myclaims struct {
 	UserName string `json:"user_name"`
 	Roles    string `json:"roles"`
 	ID       uint   `json:"id"`
+	Ip       string `json:"ip"`
+
 	jwt.RegisteredClaims
 }
 
 var Secret = []byte(viper.GetString("secret.key"))
 
 // 生成token
-func GenToken(username string, roles string, id uint) (string, error) {
+func GenToken(username string, roles string, id uint, ip string) (string, error) {
 	claims := &Myclaims{
 		username,
 		roles,
 		id,
+		ip,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 10)),
 			Issuer:    "xinghe",
