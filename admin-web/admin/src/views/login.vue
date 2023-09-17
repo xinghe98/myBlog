@@ -28,13 +28,21 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import { adminStore } from "@/store/adminStore";
+const admin = adminStore();
+const router = useRouter();
+const handleClick = (key: string) => {
+  router.push(key);
+};
 const formData = reactive({
   username: "",
   password: "",
 });
-const submit = (formdata: { username: string; password: string }) => {
-  console.log(formdata);
-};
+async function submit(formdata: { username: string; password: string }) {
+  await admin.login(formdata);
+  handleClick("/admin");
+}
 </script>
 
 <style lang="less" scoped>
