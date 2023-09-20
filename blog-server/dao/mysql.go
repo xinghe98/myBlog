@@ -2,6 +2,7 @@ package dao
 
 import (
 	"fmt"
+
 	"myBlogServer/v1/models"
 
 	"github.com/spf13/viper"
@@ -29,7 +30,7 @@ func ConnectMysql() *gorm.DB {
 
 // InitModel 在数据库中建立对应的表结构
 func InitModel() {
-	err := DB.AutoMigrate(&models.TestUsersInfo{}, &models.User{})
+	err := DB.AutoMigrate(&models.User{})
 	if err != nil {
 		fmt.Println(err)
 	}
