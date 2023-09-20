@@ -1,8 +1,12 @@
 package service
 
-type Logic struct {
-	AdminRL // Admin的注册和登录
-	Article // 文章的crud
+import "github.com/gin-gonic/gin"
+
+type AdminInterface interface {
+	Sigup(ctx *gin.Context)
+	Login(ctx *gin.Context)
 }
 
-var LOC = new(Logic)
+type ArticleInterface interface {
+	ReadAll(ctx *gin.Context)
+}

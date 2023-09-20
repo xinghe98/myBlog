@@ -5,11 +5,12 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
 	"myBlogServer/v1/models"
 	"myBlogServer/v1/util"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -74,4 +75,8 @@ func (a *AdminRL) Login(ctx *gin.Context) {
 		return
 	}
 	httpresp.ResOK(ctx, gin.H{"JwtToen": token})
+}
+
+func NewAdminService() *AdminRL {
+	return &AdminRL{}
 }

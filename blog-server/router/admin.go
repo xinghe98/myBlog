@@ -7,17 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AdminRouter(r *gin.Engine, c *controller.BlogCo) *gin.Engine {
+func AdminRouter(r *gin.Engine) *gin.Engine {
 	admin := r.Group("/admin/")
 
 	{
-		admin.POST("regist", c.Admin.Regist) // 注册用户
-		admin.POST("login", c.Admin.Login)   // 登录
+		admin.POST("regist", controller.AdminResAndLogin.Sigup) // 注册用户
+		admin.POST("login", controller.AdminResAndLogin.Login)  // 登录
 	}
 	article := r.Group("/article/")
 	article.Use(middleware.JwtAuth())
 	{
-		article.GET("findall", c.Admin.AllArticle)
+		article.GET("findall", controller.ArticleCRUD.AllArticle)
 	}
 	return r
 }

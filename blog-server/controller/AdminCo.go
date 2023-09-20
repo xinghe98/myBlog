@@ -6,19 +6,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AdminCo struct{}
+type AdminCo struct {
+	AdminInterface service.AdminInterface
+}
 
 // 注册的控制器
-func (a AdminCo) Regist(ctx *gin.Context) {
-	service.LOC.AdminRL.Sigup(ctx)
+func (a AdminCo) Sigup(ctx *gin.Context) {
+	a.AdminInterface.Sigup(ctx)
 }
 
 // 登录的控制器
 func (a AdminCo) Login(ctx *gin.Context) {
-	service.LOC.AdminRL.Login(ctx)
+	a.AdminInterface.Login(ctx)
 }
 
-// 查看所有文章的控制器
-func (a AdminCo) AllArticle(ctx *gin.Context) {
-	service.LOC.Article.FindAll(ctx)
+func NewAdmin(Admin service.AdminInterface) AdminCo {
+	return AdminCo{Admin}
 }

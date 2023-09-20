@@ -1,8 +1,8 @@
 package controller
 
-type BlogCo struct {
-	Admin   AdminCo   // 生产环境的
-	Example ExampleCo // 测试环境的
-}
+import "myBlogServer/v1/service"
 
-var CO = new(BlogCo)
+var (
+	AdminResAndLogin = NewAdmin(service.NewAdminService())
+	ArticleCRUD      = NewArticleCO(service.NewArticle())
+)
