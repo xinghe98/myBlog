@@ -525,6 +525,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
+diff-match-patch@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==
+
 element-plus@^2.3.12:
   version "2.3.12"
   resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-2.3.12.tgz#d3c91d0c701b2b3e67d06a351cb0c42dcc46460e"
@@ -1159,6 +1164,13 @@ unplugin@^1.3.2, unplugin@^1.4.0:
     chokidar "^3.5.3"
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.5.0"
+
+vditor@^3.9.5:
+  version "3.9.5"
+  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.9.5.tgz#2be02f8242194f24f7c639ad09a51debed9b170f"
+  integrity sha512-yRFyEOoJ0GQGAjfzDBV9ZKemCleqspSf3Jg3XtKVj8RwnjnF6oScLQCAwSgRzCamYl+F+rIX9at0c3tEsatY/A==
+  dependencies:
+    diff-match-patch "^1.0.5"
 
 vite-plugin-compression@^0.5.1:
   version "0.5.1"

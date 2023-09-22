@@ -1,5 +1,7 @@
-<template>
-	<h1>dddd</h1>
-</template>
+<script lang="ts" setup>
+import articleedit from "@/components/ArticleEdit.vue";
+</script>
 
-<script lang="ts" setup></script>
+<template>
+	<articleedit />
+</template>

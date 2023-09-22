@@ -10,7 +10,7 @@
 				>
 					<el-sub-menu index="1">
 						<template #title>
-							<el-icon><message /></el-icon>
+							<el-icon><Notebook /></el-icon>
 							<span>文章管理</span>
 						</template>
 						<el-menu-item-group>
@@ -21,7 +21,7 @@
 					</el-sub-menu>
 					<el-sub-menu index="2">
 						<template #title>
-							<el-icon><icon-menu /></el-icon>
+							<el-icon><Setting /></el-icon>
 							<span>博客管理</span>
 						</template>
 						<el-menu-item-group>
@@ -33,10 +33,10 @@
 				</el-menu>
 			</el-scrollbar>
 		</el-aside>
-
 		<el-container>
 			<el-header>
-				<el-button class="collpasebut" type="text" :icon="Fold" @click="transformColl" />
+				<el-link v-if="isCollapse" class="collpasebut" :icon="Expand" @click="transformColl" />
+				<el-link v-else class="collpasebut" :icon="Fold" @click="transformColl" />
 				<div class="toolbar">
 					<el-dropdown @command="handleCommand">
 						<el-icon style="margin-right: 8px; margin-top: 1px"><setting /></el-icon>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Menu as IconMenu, Message, Setting, Fold } from "@element-plus/icons-vue";
+import { Menu as IconMenu, Notebook, Setting, Fold, Expand } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { adminStore } from "@/store/adminStore";
 import { useRouter } from "vue-router";
@@ -111,5 +111,6 @@ body {
 .collpasebut {
 	width: 30px;
 	margin-top: 11px;
+	font-size: 32px;
 }
 </style>
