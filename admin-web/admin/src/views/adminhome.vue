@@ -1,11 +1,17 @@
 <template>
 	<el-container class="layout-container-demo">
-		<el-aside width="200px">
+		<el-aside width="auto">
 			<el-scrollbar>
-				<el-menu :default-openeds="['1']" :router="true">
+				<el-menu
+					:default-openeds="['1']"
+					:router="true"
+					:collapse="isCollapse"
+					class="el-menu-container"
+				>
 					<el-sub-menu index="1">
 						<template #title>
-							<el-icon><message /></el-icon>文章管理
+							<el-icon><message /></el-icon>
+							<span>文章管理</span>
 						</template>
 						<el-menu-item-group>
 							<template #title>文章</template>
@@ -15,7 +21,8 @@
 					</el-sub-menu>
 					<el-sub-menu index="2">
 						<template #title>
-							<el-icon><icon-menu /></el-icon>博客管理
+							<el-icon><icon-menu /></el-icon>
+							<span>博客管理</span>
 						</template>
 						<el-menu-item-group>
 							<template #title>标题</template>
@@ -28,7 +35,8 @@
 		</el-aside>
 
 		<el-container>
-			<el-header style="text-align: right; font-size: 12px">
+			<el-header>
+				<el-button class="collpasebut" type="text" :icon="Fold" @click="transformColl" />
 				<div class="toolbar">
 					<el-dropdown @command="handleCommand">
 						<el-icon style="margin-right: 8px; margin-top: 1px"><setting /></el-icon>
@@ -41,19 +49,23 @@
 					<span>Tom</span>
 				</div>
 			</el-header>
-
 			<router-view />
 		</el-container>
 	</el-container>
 </template>
 
 <script lang="ts" setup>
-import { Menu as IconMenu, Message, Setting } from "@element-plus/icons-vue";
+import { Menu as IconMenu, Message, Setting, Fold } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { adminStore } from "@/store/adminStore";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+let isCollapse = ref<boolean>(false);
 const admin = adminStore();
 const router = useRouter();
+const transformColl = () => {
+	isCollapse.value = !isCollapse.value;
+};
 const handleCommand = (command: number) => {
 	ElMessage.warning(`you are ${command}`);
 	admin.isAuthenticated = false;
@@ -62,7 +74,7 @@ const handleCommand = (command: number) => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 html,
 body {
 	padding: 0%;
@@ -72,6 +84,7 @@ body {
 	position: relative;
 	background-color: var(--el-color-primary-light-7);
 	color: var(--el-text-color-primary);
+	padding: 0;
 }
 .layout-container-demo .el-aside {
 	background: transparent;
@@ -88,5 +101,15 @@ body {
 	justify-content: center;
 	height: 100%;
 	right: 20px;
+	font-size: 12px;
+	float: right;
+}
+.el-menu-container:not(.el-menu--collapse) {
+	width: 200px;
+	height: calc(100vh);
+}
+.collpasebut {
+	width: 30px;
+	margin-top: 11px;
 }
 </style>
