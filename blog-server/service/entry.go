@@ -9,4 +9,5 @@ type AdminInterface interface {
 
 type ArticleInterface interface {
 	ReadAll(ctx *gin.Context)
+	UpdateOne(ctx *gin.Context)
 }
