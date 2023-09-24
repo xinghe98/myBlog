@@ -28,6 +28,7 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 	err = dao.DB.Create(&tag).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+		return
 	}
 
 	httpresp.ResOK(ctx, nil)
