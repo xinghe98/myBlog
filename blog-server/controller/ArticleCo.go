@@ -7,11 +7,11 @@ import (
 )
 
 type ArticleCo struct {
-	Article service.ArticleInterface
+	Article service.Cruder
 }
 
 // 实例化article的控制器
-func NewArticleCO(Article service.ArticleInterface) ArticleCo {
+func NewArticleCO(Article service.Cruder) ArticleCo {
 	return ArticleCo{Article}
 }
 

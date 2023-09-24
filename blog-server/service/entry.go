@@ -7,7 +7,10 @@ type AdminInterface interface {
 	Login(ctx *gin.Context)
 }
 
-type ArticleInterface interface {
+type Cruder interface {
+	CreateOne(ctx *gin.Context)
 	ReadAll(ctx *gin.Context)
+	ReadAny(ctx *gin.Context)
 	UpdateOne(ctx *gin.Context)
+	DeleteOne(ctx *gin.Context)
 }

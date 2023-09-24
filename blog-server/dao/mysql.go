@@ -30,7 +30,7 @@ func ConnectMysql() *gorm.DB {
 
 // InitModel 在数据库中建立对应的表结构
 func InitModel() {
-	err := DB.AutoMigrate(&models.User{})
+	err := DB.AutoMigrate(&models.User{}, &models.Tag{}, &models.Article{})
 	if err != nil {
 		fmt.Println(err)
 	}
