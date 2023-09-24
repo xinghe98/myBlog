@@ -19,5 +19,10 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	{
 		article.GET("findall", controller.ArticleCRUD.AllArticle)
 	}
+	tags := r.Group("/tags/")
+	tags.Use(middleware.JwtAuth())
+	{
+		tags.POST("create", controller.TagsCRUD.CreateTag)
+	}
 	return r
 }
