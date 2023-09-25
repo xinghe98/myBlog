@@ -1,7 +1,11 @@
 package service
 
 import (
+	"net/http"
+
+	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
+	"myBlogServer/v1/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +19,19 @@ func NewArticle() *Article {
 
 // CreateOne 创建一片文章
 func (a *Article) CreateOne(ctx *gin.Context) {
+	var article models.Article
+	err := ctx.ShouldBindJSON(&article)
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "数据不合法")
+		return
+	}
+	err = dao.DB.Create(&article).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+		return
+	}
+
+	httpresp.ResOK(ctx, nil)
 	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
 

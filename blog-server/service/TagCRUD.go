@@ -1,11 +1,13 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 
 	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
 	"myBlogServer/v1/models"
+	"myBlogServer/v1/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,7 +24,8 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 	var tag models.Tag
 	err := ctx.ShouldBindJSON(&tag)
 	if err != nil {
-		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "数据不合法")
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
+		fmt.Println(err)
 		return
 	}
 	err = dao.DB.Create(&tag).Error
