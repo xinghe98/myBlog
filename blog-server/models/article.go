@@ -5,10 +5,10 @@ import "gorm.io/gorm"
 type Article struct {
 	gorm.Model
 	Id      uint   `gorm:"primaryKey"`
-	Tags    []*Tag `json:"tags" form:"tags" gorm:"column:tags;many2many:article_tags;"`
+	Tags    []*Tag `json:"tags" form:"tags" gorm:"many2many:article_tags;"`
 	TagsID  string `json:"tags_id" form:"tags_id" gorm:"column:tags_id;"`
 	Status  uint   `json:"status" form:"status" gorm:"column:status"`
-	Content string `json:"content" form:"content" gorm:"column:content"`
+	Content string `json:"content" form:"content" gorm:"column:content;type:text"`
 }
 type Tag struct {
 	gorm.Model
