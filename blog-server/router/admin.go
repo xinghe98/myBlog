@@ -18,6 +18,7 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	article.Use(middleware.JwtAuth())
 	{
 		article.GET("findall", controller.ArticleCRUD.AllArticle)
+		article.POST("create", controller.ArticleCRUD.AddArticle)
 	}
 	tags := r.Group("/tags/")
 	tags.Use(middleware.JwtAuth())

@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Article struct {
 	gorm.Model
-	Tags    []*Tag `json:"tags" form:"tags" gorm:"many2many:article_tags;" binding:"required"`
+	Tags    []*Tag `json:"tags" form:"tags" gorm:"many2many:article_tags;" `
 	Status  uint   `json:"status" form:"status" gorm:"column:status"`
 	Content string `json:"content" form:"content" gorm:"column:content;type:text" binding:"required"`
 }

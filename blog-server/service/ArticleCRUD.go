@@ -6,6 +6,7 @@ import (
 	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
 	"myBlogServer/v1/models"
+	"myBlogServer/v1/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,7 +23,7 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 	var article models.Article
 	err := ctx.ShouldBindJSON(&article)
 	if err != nil {
-		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "数据不合法")
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
 		return
 	}
 	err = dao.DB.Create(&article).Error
@@ -32,7 +33,6 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 	}
 
 	httpresp.ResOK(ctx, nil)
-	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
 
 // ReadAll 查找所有文章
