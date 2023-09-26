@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 
 	"myBlogServer/v1/dao"
@@ -21,17 +22,24 @@ func NewArticle() *Article {
 // CreateOne 创建一片文章
 func (a *Article) CreateOne(ctx *gin.Context) {
 	var article models.Article
+	var tags []*models.Tag
 	err := ctx.ShouldBindJSON(&article)
 	if err != nil {
+		fmt.Println(err)
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
 		return
 	}
-	err = dao.DB.Create(&article).Error
+	fmt.Println(article)
+	taglist := article.Tags
+	fmt.Println(taglist)
+	dao.DB.Find(&tags, "name in ?", taglist)
+	fmt.Println(tags)
+	/* err = dao.DB.Create(&article).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 		return
 	}
-
+	*/
 	httpresp.ResOK(ctx, nil)
 }
 
