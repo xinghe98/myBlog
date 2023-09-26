@@ -39,11 +39,15 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 
 // ReadAll 查找所有标签
 func (a *TagCRUD) ReadAll(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
+	var tag []models.Tag
+	dao.DB.Find(&tag)
+	httpresp.ResOK(ctx, tag)
 }
 
 func (a *TagCRUD) ReadAny(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
+	var tag []models.Tag
+	dao.DB.Preload("HasArt").Find(&tag)
+	httpresp.ResOK(ctx, tag)
 }
 
 // UpdateOne 更新一个标签

@@ -24,6 +24,7 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	tags.Use(middleware.JwtAuth())
 	{
 		tags.POST("create", controller.TagsCRUD.CreateTag)
+		tags.GET("findall", controller.TagsCRUD.ReadTag)
 	}
 	return r
 }

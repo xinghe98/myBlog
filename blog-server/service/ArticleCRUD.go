@@ -23,23 +23,25 @@ func NewArticle() *Article {
 func (a *Article) CreateOne(ctx *gin.Context) {
 	var article models.Article
 	var tags []*models.Tag
-	err := ctx.ShouldBindJSON(&article)
+	err := ctx.ShouldBindJSON(&article) // 绑定前端的json数据
 	if err != nil {
 		fmt.Println(err)
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
 		return
 	}
-	fmt.Println(article)
-	taglist := article.Tags
-	fmt.Println(taglist)
-	dao.DB.Find(&tags, "name in ?", taglist)
-	fmt.Println(tags)
-	/* err = dao.DB.Create(&article).Error
+	taglist := article.Tags // 获取前端传来的tag数组
+	tag := make([]string, len(taglist))
+	for i, v := range taglist {
+		tag[i] = v.Name
+	}
+	dao.DB.Find(&tags, "name in ?", tag) // 查找数据库中是否有这些tag
+	article.Tags = tags                  // 将查找到的tag赋值给文章的tag
+	err = dao.DB.Create(&article).Error  // 创建文章
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 		return
 	}
-	*/
+
 	httpresp.ResOK(ctx, nil)
 }
 

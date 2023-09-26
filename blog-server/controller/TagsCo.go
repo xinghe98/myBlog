@@ -18,3 +18,8 @@ func NewTagCo(tagService service.Cruder) tagsco {
 func (t tagsco) CreateTag(ctx *gin.Context) {
 	t.tagService.CreateOne(ctx)
 }
+
+// readTag 查看标签
+func (t tagsco) ReadTag(ctx *gin.Context) {
+	t.tagService.ReadAny(ctx)
+}
