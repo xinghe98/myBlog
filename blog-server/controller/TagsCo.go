@@ -21,5 +21,5 @@ func (t tagsco) CreateTag(ctx *gin.Context) {
 
 // readTag 查看标签
 func (t tagsco) ReadTag(ctx *gin.Context) {
-	t.tagService.ReadAny(ctx)
+	t.tagService.ReadWithAnother(ctx)
 }

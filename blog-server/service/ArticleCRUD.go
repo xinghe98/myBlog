@@ -50,10 +50,6 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
 }
 
-func (a *Article) ReadAny(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
-}
-
 // UpdateOne 更新一篇文章
 func (a *Article) UpdateOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
@@ -62,4 +58,11 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 // DeleteOne 删除一篇文章
 func (a *Article) DeleteOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
+}
+
+// 下面是一些其他复杂的查询方法
+
+// ReadWithAnother 通过其他条件查找文章
+func (a *Article) ReadWithAnother(ctx *gin.Context) {
+	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
 }
