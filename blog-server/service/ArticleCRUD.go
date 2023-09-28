@@ -35,8 +35,12 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 		tag[i] = v.Name
 	}
 	dao.DB.Find(&tags, "name in ?", tag) // 查找数据库中是否有这些tag
-	article.Tags = tags                  // 将查找到的tag赋值给文章的tag
-	err = dao.DB.Create(&article).Error  // 创建文章
+	if len(tags) != len(tag) {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "tag不合法")
+		return
+	}
+	article.Tags = tags                 // 将查找到的tag赋值给文章的tag
+	err = dao.DB.Create(&article).Error // 创建文章
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 		return
