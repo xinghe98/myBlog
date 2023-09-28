@@ -10,6 +10,7 @@ import (
 	"myBlogServer/v1/util"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type Article struct{}
@@ -49,17 +50,31 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, nil)
 }
 
-// ReadAll 查找所有文章
+// ReadAll 查找所有文章(分页)
+// INFO: 这里的分页是通过前端传来的参数来实现的，如果前端不传参数，那么什么都不会发生，暂时是为了查询安全
 func (a *Article) ReadAll(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
+	pagination := util.GeneratePaginationFromRequest(ctx)
+	offset := (pagination.Page - 1) * pagination.Limit
+	var article models.Article
+	var articles []*models.Article
+	err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
+		return DB.Debug().Omit("HasArt")
+	}).Where(article).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+		return
+	}
+	httpresp.ResOK(ctx, articles)
 }
 
 // UpdateOne 更新一篇文章
+// FIX: 还没写完
 func (a *Article) UpdateOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
 
 // DeleteOne 删除一篇文章
+// FIX: 还没写完
 func (a *Article) DeleteOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
@@ -67,6 +82,7 @@ func (a *Article) DeleteOne(ctx *gin.Context) {
 // 下面是一些其他复杂的查询方法
 
 // ReadWithAnother 通过其他条件查找文章
+// FIX: 还没写完
 func (a *Article) ReadWithAnother(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
 }

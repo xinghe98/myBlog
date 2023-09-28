@@ -45,17 +45,20 @@ func (a *TagCRUD) ReadAll(ctx *gin.Context) {
 }
 
 // UpdateOne 更新一个标签
+// FIX: 还没写完
 func (a *TagCRUD) UpdateOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
 
 // DeleteOne 删除一个标签
+// FIX: 还没写完
 func (a *TagCRUD) DeleteOne(ctx *gin.Context) {
 	httpresp.ResOK(ctx, gin.H{"code": 200})
 }
 
 // 其他一些复杂的查询
 // ReadWithAnother 查询所有标签，并且查询每个标签下的文章
+// TODO: 这里要删掉，因为这个查询是为了测试gorm的preload功能，不然会影响性能
 func (a *TagCRUD) ReadWithAnother(ctx *gin.Context) {
 	var tag []models.Tag
 	dao.DB.Preload("HasArt").Find(&tag)

@@ -10,7 +10,7 @@ type Article struct {
 	Content string `json:"content" form:"content" gorm:"column:content;type:text" binding:"required"`
 }
 type Tag struct {
-	gorm.Model
-	Name   string     `json:"name" gorm:"column:name;unique" binding:"required"` // 标签名
-	HasArt []*Article `gorm:"many2many:article_tags;"`
+	gorm.Model `json:"-"`
+	Name       string     `json:"name" gorm:"column:name;unique" binding:"required"` // 标签名
+	HasArt     []*Article `gorm:"many2many:article_tags;"`
 }
