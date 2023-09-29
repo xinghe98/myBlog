@@ -22,9 +22,8 @@ export const articleStore = defineStore("article", {
 				ElMessage.success(res.data.msg);
 			} catch (e: any) {
 				if (e.response.data.data !== null) {
-					// FIX: 未知原因，data为null时，无法正确提示
-					console.log(e.response.data.data);
-					ElMessage.error(e.response.data.data[0]);
+					const keys = Object.keys(e.response.data.data);
+					ElMessage.error(e.response.data.data[keys[0]][0]);
 				} else {
 					ElMessage.error(e.response.data.msg);
 				}

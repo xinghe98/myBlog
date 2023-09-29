@@ -33,8 +33,11 @@ onMounted(async () => {
 .el-checkbox-group {
 	margin-bottom: 10px;
 	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 div {
-	background-color: #f2f2f2;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 </style>

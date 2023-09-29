@@ -16,7 +16,8 @@
 						</template>
 						<el-menu-item-group>
 							<template #title>文章</template>
-							<el-menu-item index="/admin/readall">所有文章</el-menu-item>
+							<el-menu-item index="/admin/readall">已发布</el-menu-item>
+							<el-menu-item index="/admin/readsaved">草稿箱</el-menu-item>
 							<el-menu-item index="/admin/create">新增文章</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>

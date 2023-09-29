@@ -16,5 +16,7 @@ const addtitle = () => {
 .el-input {
 	margin-bottom: 10px;
 	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 </style>
