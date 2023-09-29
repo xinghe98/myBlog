@@ -51,20 +51,32 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 }
 
 // ReadAll 查找所有文章(分页)
-// INFO: 这里的分页是通过前端传来的参数来实现的，如果前端不传参数，那么什么都不会发生，暂时是为了查询安全
+// INFO: 这里的分页是通过前端传来的参数来实现的，如果前端不传参数，那么就是查找所有文章
 func (a *Article) ReadAll(ctx *gin.Context) {
 	pagination := util.GeneratePaginationFromRequest(ctx)
-	offset := (pagination.Page - 1) * pagination.Limit
 	var article models.Article
 	var articles []*models.Article
-	err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
-		return DB.Debug().Omit("HasArt")
-	}).Where(article).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
-	if err != nil {
-		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
-		return
+	// 没有查询参数时查询所有文章
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 {
+		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
+			return DB.Debug().Omit("HasArt")
+		}).Find(&articles).Error
+		if err != nil {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+			return
+		}
+		httpresp.ResOK(ctx, articles)
+	} else {
+		offset := (pagination.Page - 1) * pagination.Limit
+		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
+			return DB.Debug().Omit("HasArt")
+		}).Where(article).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
+		if err != nil {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+			return
+		}
+		httpresp.ResOK(ctx, articles)
 	}
-	httpresp.ResOK(ctx, articles)
 }
 
 // UpdateOne 更新一篇文章

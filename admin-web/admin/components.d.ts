@@ -39,5 +39,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TagSelect: typeof import('./src/components/TagSelect.vue')['default']
+    TitleEdit: typeof import('./src/components/titleEdit.vue')['default']
   }
 }

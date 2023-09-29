@@ -14,6 +14,9 @@ func GeneratePaginationFromRequest(c *gin.Context) (pagination models.Pageinatio
 	}
 
 	// 校验参数
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 {
+		return
+	}
 	if pagination.Limit < 0 {
 		pagination.Limit = 2
 	}

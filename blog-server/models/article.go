@@ -5,8 +5,8 @@ import "gorm.io/gorm"
 type Article struct {
 	gorm.Model
 	Tags    []*Tag `json:"tags" form:"tags" gorm:"many2many:article_tags;" binding:"required"`
-	Title   string `json:"title" form:"title" gorm:"column:title" binding:"required"`
-	Status  uint   `json:"status" form:"status" gorm:"column:status"`
+	Title   string `json:"title" form:"title" gorm:"column:title" binding:"required,max=50,min=1"`
+	Status  uint   `json:"status" form:"status" gorm:"column:status;comment:'0:草稿 1:发布'" binding:"required"`
 	Content string `json:"content" form:"content" gorm:"column:content;type:text" binding:"required"`
 }
 type Tag struct {

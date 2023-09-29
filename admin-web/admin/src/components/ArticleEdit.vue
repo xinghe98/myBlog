@@ -8,8 +8,12 @@
 import { ref, onMounted } from "vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
+import { articleStore } from "@/store/articleStore";
+const article = articleStore();
 const submitarticle = () => {
-	console.log(vditor.value!.getValue());
+	article.content = vditor.value!.getValue();
+	article.createArticle();
+	// console.log(vditor.value!.getValue());
 };
 
 const vditor = ref<Vditor | null>(null);

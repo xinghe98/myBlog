@@ -14,6 +14,7 @@ const router = createRouter({
 			path: "/admin",
 			name: "allarticle",
 			component: () => import("@/views/adminhome.vue"),
+			redirect: "/admin/readall",
 			children: [
 				{
 					path: "readall",
