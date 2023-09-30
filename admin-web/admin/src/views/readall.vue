@@ -1,30 +1,68 @@
 <template>
-	<div class="demo-collapse">
-		<el-collapse accordion @change="preview">
-			<el-collapse-item v-for="data in datas as any[]" :name="data.ID">
-				<template #title> {{ data.title }} </template>
-				<div id="preview"></div>
-			</el-collapse-item>
-		</el-collapse>
-	</div>
+	<el-row>
+		<el-space wrap size="large">
+			<el-card
+				v-for="i in data"
+				:key="i.ID"
+				class="box-card"
+				style="width: 250px"
+				:body-style="{ padding: '5px' }"
+			>
+				<img
+					src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+					class="image"
+				/>
+				<div style="padding: 10px">
+					<span>{{ i.title }}</span>
+					<div class="bottom">
+						<time class="time">{{ i.content.substring(1, 30) + "..." }}</time>
+						<el-button type="primary" :icon="Edit" circle />
+						<el-button type="danger" :icon="Delete" circle />
+					</div>
+				</div>
+			</el-card>
+		</el-space>
+	</el-row>
 </template>
 
-<script setup lang="ts">
-import Vditor from "vditor";
+<script lang="ts" setup>
 import { onMounted, ref } from "vue";
+import { Edit, Delete } from "@element-plus/icons-vue";
 import request from "@/util/request";
-import { CollapseModelValue } from "element-plus";
-let datas = ref<any>([]);
-// FIX: 无法预览
-const preview = (id: CollapseModelValue) => {
-	const data = datas.value.find((item: any) => item.ID === id);
-	if (data === undefined) return;
-	console.log(data.content);
-	// Vditor.preview(document.getElementById("preview") as HTMLDivElement, data.content);
+type artdata = {
+	ID: number;
+	title: string;
+	content: string;
+	tags: string[];
 };
+const data = ref<artdata[]>([]);
 onMounted(async () => {
 	const res = await request.get("/article/findall");
-	datas.value = res.data.data;
-	Vditor.preview(document.getElementById("preview") as HTMLDivElement, "## da");
+	data.value = res.data.data;
 });
 </script>
+
+<style scoped>
+.time {
+	font-size: 12px;
+	color: #999;
+}
+
+.bottom {
+	margin-top: 13px;
+	line-height: 12px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button {
+	padding: 0;
+	min-height: auto;
+}
+
+.image {
+	width: 100%;
+	display: block;
+}
+</style>
