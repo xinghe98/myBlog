@@ -26,6 +26,11 @@ const router = createRouter({
 					name: "create",
 					component: () => import("@/views/create.vue"),
 				},
+				{
+					path: "tags",
+					name: "tags",
+					component: () => import("@/views/tagOp.vue"),
+				},
 			],
 		},
 	],

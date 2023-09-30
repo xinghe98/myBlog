@@ -28,8 +28,7 @@
 						</template>
 						<el-menu-item-group>
 							<template #title>标题</template>
-							<el-menu-item index="2-1">Option 1</el-menu-item>
-							<el-menu-item index="2-2">Option 2</el-menu-item>
+							<el-menu-item index="/admin/tags">分类管理</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 				</el-menu>
