@@ -21,7 +21,7 @@ func main() {
 	// 初始化gin
 	// gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
-	r.SetTrustedProxies([]string{"127.0.0.1"})
+	// r.SetTrustedProxies([]string{"127.0.0.1"})
 	// 注册中间件
 	r.Use(middleware.Cors())
 	// 注册路由
