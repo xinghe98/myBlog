@@ -4,7 +4,7 @@
 			<el-scrollbar>
 				<el-menu
 					:default-openeds="['1']"
-					:default-active="activeIndex"
+					:default-active="route.path"
 					:router="true"
 					:collapse="isCollapse"
 					class="el-menu-container"
@@ -61,7 +61,8 @@ import { ElMessage } from "element-plus";
 import { adminStore } from "@/store/adminStore";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-const activeIndex = ref<string>("/admin/readall");
+import { useRoute } from "vue-router";
+const route = useRoute();
 let isCollapse = ref<boolean>(false);
 const admin = adminStore();
 const router = useRouter();

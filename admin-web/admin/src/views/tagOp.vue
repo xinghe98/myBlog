@@ -15,10 +15,8 @@
 		</el-table-column>
 		<el-table-column label="操作">
 			<template #default="scope">
-				<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-				<el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
-					>删除</el-button
-				>
+				<el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
+				<el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -30,15 +28,16 @@ import request from "@/util/request";
 
 interface tags {
 	name: string;
+	ID: number;
 }
 
 const tableData = ref<tags[]>([]);
 
-const handleEdit = (index: number, row: tags) => {
-	console.log(index, row);
+const handleEdit = (row: tags) => {
+	console.log(row);
 };
-const handleDelete = (index: number, row: tags) => {
-	console.log(index, row);
+const handleDelete = (row: tags) => {
+	console.log(row);
 };
 
 onMounted(async () => {

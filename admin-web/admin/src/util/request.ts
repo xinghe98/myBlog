@@ -2,8 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
 
 const request = axios.create({
-	// baseURL: "http://127.0.0.1:3001",
-	baseURL: "http://192.168.31.9:3001",
+	baseURL: "http://127.0.0.1:3001",
+	// baseURL: "http://192.168.31.9:3001",
 });
 
 request.interceptors.request.use(
