@@ -21,7 +21,7 @@ func NewTags() *TagCRUD {
 
 // CreateOne 创建一个标签
 func (a *TagCRUD) CreateOne(ctx *gin.Context) {
-	var tag models.Tag
+	var tag models.Tags
 	err := ctx.ShouldBindJSON(&tag)
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
@@ -39,28 +39,59 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 
 // ReadAll 查找所有标签
 func (a *TagCRUD) ReadAll(ctx *gin.Context) {
-	var tag []models.Tag
+	var tag []models.Tags
 	dao.DB.Find(&tag)
 	httpresp.ResOK(ctx, tag)
 }
 
 // UpdateOne 更新一个标签
-// FIX: 还没写完
 func (a *TagCRUD) UpdateOne(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"code": 200})
+	tagid, ok := ctx.Params.Get("id")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var tag models.Tags
+	dao.DB.Where("id=?", tagid).First(&tag)
+	if tag.Name == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
+		return
+	}
+	newTagName := ctx.PostForm("name")
+	err := dao.DB.Model(&models.Tags{}).Where("id=?", tagid).Update("name", newTagName).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"msg": "更新成功"})
 }
 
 // DeleteOne 删除一个标签
-// FIX: 还没写完
 func (a *TagCRUD) DeleteOne(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"code": 200})
+	tagid, ok := ctx.Params.Get("id")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var tag models.Tags
+	dao.DB.Where("id=?", tagid).First(&tag)
+	if tag.Name == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
+		return
+	}
+	err := dao.DB.Delete(&models.Tags{}, tagid).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"msg": "删除成功"})
 }
 
 // 其他一些复杂的查询
 // ReadWithAnother 查询所有标签，并且查询每个标签下的文章
 // TODO: 这里要删掉，因为这个查询是为了测试gorm的preload功能，不然会影响性能
 func (a *TagCRUD) ReadWithAnother(ctx *gin.Context) {
-	var tag []models.Tag
+	var tag []models.Tags
 	dao.DB.Preload("HasArt").Find(&tag)
 	httpresp.ResOK(ctx, tag)
 }

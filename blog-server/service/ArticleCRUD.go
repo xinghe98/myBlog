@@ -23,7 +23,7 @@ func NewArticle() *Article {
 // CreateOne 创建一片文章
 func (a *Article) CreateOne(ctx *gin.Context) {
 	var article models.Article
-	var tags []*models.Tag
+	var tags []*models.Tags
 	err := ctx.ShouldBindJSON(&article) // 绑定前端的json数据
 	if err != nil {
 		fmt.Println(err)
@@ -55,11 +55,12 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 func (a *Article) ReadAll(ctx *gin.Context) {
 	pagination := util.GeneratePaginationFromRequest(ctx)
 	var article models.Article
-	var articles []*models.Article
+	var articles []models.Article
 	// 没有查询参数时查询所有文章
 	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 {
 		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
-			return DB.Debug().Omit("HasArt")
+			// select会将其他字段赋值为零值并返回，所以模型结构体需要加上json-tag
+			return DB.Debug().Select("ID", "Name")
 		}).Find(&articles).Error
 		if err != nil {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
@@ -69,7 +70,7 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 	} else {
 		offset := (pagination.Page - 1) * pagination.Limit
 		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
-			return DB.Debug().Omit("HasArt")
+			return DB.Debug().Select("ID", "Name")
 		}).Where(article).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
 		if err != nil {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")

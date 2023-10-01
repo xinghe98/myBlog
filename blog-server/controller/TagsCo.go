@@ -23,3 +23,13 @@ func (t tagsco) CreateTag(ctx *gin.Context) {
 func (t tagsco) ReadTag(ctx *gin.Context) {
 	t.tagService.ReadAll(ctx)
 }
+
+// UpdateTag 更新标签
+func (t tagsco) UpdateTag(ctx *gin.Context) {
+	t.tagService.UpdateOne(ctx)
+}
+
+// DeleteTag 删除标签
+func (t tagsco) DeleteTag(ctx *gin.Context) {
+	t.tagService.DeleteOne(ctx)
+}

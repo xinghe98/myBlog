@@ -25,6 +25,8 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	{
 		tags.POST("create", controller.TagsCRUD.CreateTag)
 		tags.GET("findall", controller.TagsCRUD.ReadTag)
+		tags.PUT(":id", controller.TagsCRUD.UpdateTag)
+		tags.DELETE(":id", controller.TagsCRUD.DeleteTag)
 	}
 	return r
 }
