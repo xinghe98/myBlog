@@ -3,10 +3,6 @@
 		<el-table-column label="分类名称" width="180">
 			<template #default="scope">
 				<el-popover effect="light" trigger="hover" placement="top" width="auto">
-					<template #default>
-						<div>name: {{ scope.row.name }}</div>
-						<div>address: {{ scope.row.address }}</div>
-					</template>
 					<template #reference>
 						<el-tag>{{ scope.row.name }}</el-tag>
 					</template>
@@ -20,13 +16,17 @@
 			</template>
 		</el-table-column>
 	</el-table>
+	<add-tag />
+	<!--TODO: 使用pinia 将addtag和edittag 复用为1个-->
+	<edit-tag />
 </template>
 
 <script lang="ts" setup>
+import editTag from "./editTag.vue";
 import { onMounted, ref, inject } from "vue";
 import request from "@/util/request";
 import { ElMessage } from "element-plus";
-
+import addTag from "./addTag.vue";
 const reload: any = inject("reload");
 interface tags {
 	name: string;

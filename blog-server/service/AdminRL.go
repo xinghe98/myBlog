@@ -3,7 +3,6 @@ package service
 // 登录注册等操作
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -14,7 +13,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
 type AdminRL struct{}
@@ -31,21 +29,14 @@ func (a *AdminRL) Sigup(ctx *gin.Context) {
 	bytes, _ := bcrypt.GenerateFromPassword([]byte(user.PassWord), 14)
 	user.PassWord = string(bytes)
 
-	// TODO:下面可以进行gorm错误的封装
-	type GormErr struct {
-		Number  int    `json:"Number"`
-		Message string `json:"Message"`
-	}
-
-	if err := dao.DB.Create(&user).Error; err != nil {
-		byteErr, _ := json.Marshal(err)
-		var newError GormErr
-		json.Unmarshal((byteErr), &newError)
-		switch newError.Number {
-		case 1062:
-			fmt.Println("Duplicate Key !")
-			httpresp.ResOthers(ctx, http.StatusBadGateway, util.TransLate(gorm.ErrDuplicatedKey), "该用户名已被使用")
+	err = dao.DB.Create(&user).Error
+	if err != nil {
+		if util.CheckDup(err) {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, util.TransLate(err), "该用户名已被使用")
+			return
 		}
+
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 		return
 	}
 	httpresp.ResOK(ctx, "注册成功")

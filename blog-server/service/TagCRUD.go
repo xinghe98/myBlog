@@ -30,6 +30,10 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 	}
 	err = dao.DB.Create(&tag).Error
 	if err != nil {
+		if util.CheckDup(err) {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, util.TransLate(err), "该标签已存在")
+			return
+		}
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 		return
 	}
