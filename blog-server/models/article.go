@@ -16,9 +16,8 @@ type Article struct {
 type Tags struct {
 	ID uint `gorm:"primarykey"`
 	// select会将其他字段赋值为零值并返回，所以模型结构体需要加上json-tag,避免前端获得无意义的字段，下同
-	CreatedAt time.Time      `json:"omitempty"`
-	UpdatedAt time.Time      `json:"omitempty"`
-	DeletedAt gorm.DeletedAt `json:"omitempty" gorm:"index"`
-	Name      string         `json:"name" gorm:"column:name;unique" binding:"required"` // 标签名
-	HasArt    []*Article     `gorm:"many2many:article_tags;"`
+	CreatedAt time.Time  `json:"omitempty"`
+	UpdatedAt time.Time  `json:"omitempty"`
+	Name      string     `json:"name" gorm:"column:name;unique" binding:"required"` // 标签名
+	HasArt    []*Article `gorm:"many2many:article_tags;"`
 }

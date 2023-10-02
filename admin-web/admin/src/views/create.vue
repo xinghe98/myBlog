@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import articleedit from "@/components/ArticleEdit.vue";
-import titleEdit from "@/components/titleEdit.vue";
-import TagSelect from "@/components/TagSelect.vue";
+import { defineAsyncComponent } from "vue";
+
+const titleEdit = defineAsyncComponent(() => import("@/components/Article/titleEdit.vue"));
+const TagSelect = defineAsyncComponent(() => import("@/components/Article/TagSelect.vue"));
+const articleedit = defineAsyncComponent(() => import("@/components/Article/ArticleEdit.vue"));
 </script>
 
 <template>

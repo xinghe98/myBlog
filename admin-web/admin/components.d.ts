@@ -8,7 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Articleedit: typeof import('./src/components/articleedit.vue')['default']
-    ArticleEdit: typeof import('./src/components/ArticleEdit.vue')['default']
+    ArticleEdit: typeof import('./src/components/Article/ArticleEdit.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -45,9 +45,11 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    ReadAll: typeof import('./src/components/Article/ReadAll.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TagSelect: typeof import('./src/components/TagSelect.vue')['default']
-    TitleEdit: typeof import('./src/components/titleEdit.vue')['default']
+    TagSelect: typeof import('./src/components/Article/TagSelect.vue')['default']
+    TagsOp: typeof import('./src/components/Tag/TagsOp.vue')['default']
+    TitleEdit: typeof import('./src/components/Article/titleEdit.vue')['default']
   }
 }
