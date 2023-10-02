@@ -24,6 +24,7 @@ coverage
 *.lcov
 
 conf
+.vite
 # nyc test coverage
 .nyc_output
 
