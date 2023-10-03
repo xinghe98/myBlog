@@ -61,8 +61,15 @@ func (a *TagCRUD) UpdateOne(ctx *gin.Context) {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
 		return
 	}
-	newTagName := ctx.PostForm("name")
-	err := dao.DB.Model(&models.Tags{}).Where("id=?", tagid).Update("name", newTagName).Error
+	// newTagName := ctx.PostForm("name")
+	err := ctx.ShouldBindJSON(&tag)
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
+		fmt.Println(err)
+		return
+	}
+	newTagName := tag.Name
+	err = dao.DB.Model(&models.Tags{}).Where("id=?", tagid).Update("name", newTagName).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
 		return
