@@ -37,26 +37,44 @@
 import { onMounted, ref, inject, reactive } from "vue";
 import request from "@/util/request";
 import { ElMessage } from "element-plus";
-import { tagsStore } from "@/store/tagsStore";
 
-const tags = tagsStore();
 const reload: any = inject("reload");
-const dialogFormVisible = ref(tags.isShow);
-const title = ref(tags.windowName);
+const dialogFormVisible = ref(false);
+const title = ref("");
 const form = reactive({
 	name: "",
+	id: 0,
 });
 
-const addTag = async (form: { name: string }) => {
-	try {
-		const res = await request.post("/tags/create", form);
-		ElMessage.success(res.data.msg);
-		dialogFormVisible.value = false;
-		reload();
-	} catch (e: any) {
-		ElMessage.error(e.response.data.msg);
+// 复用addtag和edittag的方法
+const addTag = async (form: { id: number; name: string }) => {
+	if (form.id === 0) {
+		// id === 0 为添加
+		try {
+			const res = await request.post("/tags/create", form);
+			ElMessage.success(res.data.msg);
+			dialogFormVisible.value = false;
+			reload();
+		} catch (e: any) {
+			ElMessage.error(e.response.data.msg);
+		}
+	} else {
+		// id不等于0 为编辑
+		console.log(form);
+		try {
+			const res = await request.put(`/tags/${form.id}`, form);
+			ElMessage.success(res.data.msg);
+			dialogFormVisible.value = false;
+			reload();
+		} catch (e: any) {
+			ElMessage.error(e.response.data.msg);
+		}
 	}
+	// 清空表单
+	form.id = 0;
+	form.name = "";
 };
+
 interface tags {
 	name: string;
 	ID: number;
@@ -65,9 +83,9 @@ interface tags {
 const tableData = ref<tags[]>([]);
 
 const handleEdit = (row: tags) => {
-	tags.editTag("编辑分类", row.ID);
+	title.value = "编辑分类";
 	dialogFormVisible.value = true;
-	title.value = tags.windowName;
+	form.id = row.ID;
 };
 const handleDelete = async (row: tags) => {
 	try {
@@ -80,9 +98,8 @@ const handleDelete = async (row: tags) => {
 };
 
 const handleAdd = () => {
-	tags.addTag("添加分类");
 	dialogFormVisible.value = true;
-	title.value = tags.windowName;
+	title.value = "添加分类";
 };
 onMounted(async () => {
 	const res = await request.get("/tags/findall");
