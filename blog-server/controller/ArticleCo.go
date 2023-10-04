@@ -20,6 +20,11 @@ func (a ArticleCo) AddArticle(ctx *gin.Context) {
 	a.Article.CreateOne(ctx)
 }
 
+// 删除文章的控制器
+func (a ArticleCo) DeleteArticle(ctx *gin.Context) {
+	a.Article.DeleteOne(ctx)
+}
+
 // 查看所有文章的控制器
 func (a ArticleCo) AllArticle(ctx *gin.Context) {
 	a.Article.ReadAll(ctx)

@@ -87,9 +87,24 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 }
 
 // DeleteOne 删除一篇文章
-// FIX: 还没写完
 func (a *Article) DeleteOne(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"code": 200})
+	articleID, ok := ctx.Params.Get("aid")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var article models.Article
+	dao.DB.Where("id=?", articleID).First(&article)
+	if article.Title == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这篇文章")
+		return
+	}
+	err := dao.DB.Delete(&models.Article{}, articleID).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"msg": "删除成功"})
 }
 
 // 下面是一些其他复杂的查询方法
