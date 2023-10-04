@@ -55,4 +55,7 @@ declare module 'vue' {
     TagsOp: typeof import('./src/components/Tag/TagsOp.vue')['default']
     TitleEdit: typeof import('./src/components/Article/titleEdit.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

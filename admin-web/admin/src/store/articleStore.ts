@@ -6,7 +6,7 @@ export const articleStore = defineStore("article", {
 	persist: false,
 	state: () => ({
 		title: "",
-		content: "",
+		content: "# Hello World",
 		status: 0,
 		tags: [],
 	}),

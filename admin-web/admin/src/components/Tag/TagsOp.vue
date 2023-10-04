@@ -1,5 +1,5 @@
 <template>
-	<el-table :data="tableData" class="table">
+	<el-table v-loading="loading" :data="tableData" class="table">
 		<el-table-column label="分类名称" width="180">
 			<template #default="scope">
 				<el-popover effect="light" trigger="hover" placement="top" width="auto">
@@ -38,6 +38,7 @@ import { onMounted, ref, inject, reactive } from "vue";
 import request from "@/util/request";
 import { ElMessage } from "element-plus";
 
+const loading = ref(true);
 const reload: any = inject("reload");
 const dialogFormVisible = ref(false);
 const title = ref("");
@@ -104,6 +105,7 @@ const handleAdd = () => {
 onMounted(async () => {
 	const res = await request.get("/tags/findall");
 	tableData.value = res.data.data;
+	loading.value = false;
 });
 </script>
 
