@@ -5,6 +5,7 @@ import { ElMessage } from "element-plus";
 export const articleStore = defineStore("article", {
 	persist: false,
 	state: () => ({
+		ID: 0,
 		title: "",
 		content: "# Hello World",
 		status: 0,

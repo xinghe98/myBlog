@@ -10,14 +10,14 @@
 					:body-style="{ padding: '5px' }"
 				>
 					<img
-						src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+						src="https://pic.52112.com/2019/07/23/JPG-190723_759/mfvvEHO7sx_small.jpg"
 						class="image"
 					/>
 					<div style="padding: 10px">
 						<span>{{ i.title }}</span>
 						<div class="bottom">
 							<time class="time">{{ i.content.substring(1, 30) + "..." }}</time>
-							<el-button type="primary" :icon="Edit" circle />
+							<el-button type="primary" :icon="Edit" @click="edit(i)" circle />
 							<el-button type="danger" :icon="Delete" circle />
 						</div>
 					</div>
@@ -31,13 +31,30 @@
 import { onMounted, ref } from "vue";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import request from "@/util/request";
+import { articleStore } from "@/store/articleStore";
+import router from "@/router";
+
 const loading = ref(true);
+const artStore = articleStore();
+
 type artdata = {
 	ID: number;
 	title: string;
 	content: string;
-	tags: string[];
+	tags: never[];
+	status: number;
 };
+
+const edit = async (article: artdata) => {
+	// 将article 传递给articleStore
+	artStore.ID = article.ID;
+	artStore.title = article.title;
+	artStore.content = article.content;
+	artStore.tags = article.tags;
+	artStore.status = article.status;
+	router.push(`/admin/edit/${article.ID}`);
+};
+
 const data = ref<artdata[]>([]);
 onMounted(async () => {
 	const res = await request.get("/article/findall");
