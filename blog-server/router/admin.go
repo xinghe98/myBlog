@@ -18,8 +18,9 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	article := r.Group("/article/")
 	article.Use(middleware.JwtAuth())
 	{
-		article.GET("findall", controller.ArticleCRUD.AllArticle)
 		article.POST("create", controller.ArticleCRUD.AddArticle)
+		article.GET("findall", controller.ArticleCRUD.AllArticle)
+		article.PUT(":aid", controller.ArticleCRUD.UpdateArticle)
 		article.DELETE(":aid", controller.ArticleCRUD.DeleteArticle)
 	}
 	// 标签相关
@@ -28,6 +29,7 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	{
 		tags.POST("create", controller.TagsCRUD.CreateTag)
 		tags.GET("findall", controller.TagsCRUD.ReadTag)
+		tags.GET("findwith", controller.TagsCRUD.MazyFind)
 		tags.PUT(":id", controller.TagsCRUD.UpdateTag)
 		tags.DELETE(":id", controller.TagsCRUD.DeleteTag)
 	}

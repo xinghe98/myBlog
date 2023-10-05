@@ -33,3 +33,8 @@ func (t tagsco) UpdateTag(ctx *gin.Context) {
 func (t tagsco) DeleteTag(ctx *gin.Context) {
 	t.tagService.DeleteOne(ctx)
 }
+
+// MazyFind 复杂查询：根据标签名查找文章
+func (t tagsco) MazyFind(ctx *gin.Context) {
+	t.tagService.ReadWithAnother(ctx)
+}

@@ -81,9 +81,45 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 }
 
 // UpdateOne 更新一篇文章
-// FIX: 还没写完
 func (a *Article) UpdateOne(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"code": 200})
+	articleid, ok := ctx.Params.Get("aid")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var findarticle models.Article
+	var updatearticle models.Article
+	var tags []*models.Tags
+	dao.DB.Where("id=?", articleid).First(&findarticle)
+	if findarticle.Title == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这篇文章")
+		return
+	}
+	err := ctx.ShouldBindJSON(&updatearticle)
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
+		fmt.Println(err)
+		return
+	}
+	taglist := updatearticle.Tags // 获取前端传来的tag数组
+	tag := make([]string, len(taglist))
+	for i, v := range taglist {
+		tag[i] = v.Name
+	}
+	dao.DB.Find(&tags, "name in ?", tag) // 查找数据库中是否有这些tag
+	if len(tags) != len(tag) || len(tags) == 0 {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "请选择正确的标签")
+		return
+	}
+	updatearticle.Tags = tags // 将查找到的tag赋值给文章的tag
+	// 更新文章并更新文章的标签
+	err = dao.DB.Model(&findarticle).Preload("Tags").Updates(&updatearticle).Error
+
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"msg": "更新成功"})
 }
 
 // DeleteOne 删除一篇文章
