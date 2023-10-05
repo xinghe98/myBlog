@@ -111,10 +111,16 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "请选择正确的标签")
 		return
 	}
-	updatearticle.Tags = tags // 将查找到的tag赋值给文章的tag
-	// 更新文章并更新文章的标签
-	err = dao.DB.Model(&findarticle).Preload("Tags").Updates(&updatearticle).Error
 
+	// 1. 更新标签需要先删除原因映射关系
+	err = dao.DB.Preload("Tags").Take(&findarticle, articleid).Error
+	dao.DB.Model(&findarticle).Association("Tags").Delete(findarticle.Tags)
+
+	// 2. 再重建映射关系
+	dao.DB.Model(&findarticle).Association("Tags").Replace(tags)
+
+	// 3. 最后更新文章的其他内容
+	err = dao.DB.Model(&findarticle).Updates(&updatearticle).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
 		return
