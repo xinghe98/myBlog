@@ -18,7 +18,19 @@
 						<div class="bottom">
 							<time class="time">{{ i.content.substring(1, 30) + "..." }}</time>
 							<el-button type="primary" :icon="Edit" @click="edit(i)" circle />
-							<el-button type="danger" :icon="Delete" circle />
+							<el-popconfirm
+								@confirm="del(i)"
+								:icon="CloseBold"
+								title="确定吗？"
+								icon-color="red"
+								confirm-button-text="是"
+								cancel-button-text="否"
+								confirm-button-type="danger"
+							>
+								<template #reference>
+									<el-button type="danger" :icon="Delete" circle />
+								</template>
+							</el-popconfirm>
 						</div>
 					</div>
 				</el-card>
@@ -29,6 +41,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
+import { CloseBold } from "@element-plus/icons-vue";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import request from "@/util/request";
 import { articleStore } from "@/store/articleStore";
@@ -55,10 +68,19 @@ const edit = async (article: artdata) => {
 	router.push(`/admin/edit/${article.ID}`);
 };
 
+const del = async (article: artdata) => {
+	const res = await request.delete(`/article/${article.ID}`);
+	if (res.data.code === 200) {
+		data.value = data.value.filter((i) => i.ID !== article.ID);
+	}
+};
+
 const data = ref<artdata[]>([]);
 onMounted(async () => {
 	const res = await request.get("/article/findall");
-	data.value = res.data.data;
+	const allstatusData: artdata[] = res.data.data;
+	// 过滤出status为1的数据
+	data.value = allstatusData.filter((i) => i.status === 1);
 	loading.value = false;
 });
 </script>

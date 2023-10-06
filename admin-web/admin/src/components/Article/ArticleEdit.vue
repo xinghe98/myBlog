@@ -33,6 +33,7 @@ const savearticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = -1;
 	article.createArticle();
+	router.push("/admin/readsaved");
 	// console.log(vditor.value!.getValue());
 };
 

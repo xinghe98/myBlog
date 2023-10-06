@@ -24,6 +24,12 @@ const router = createRouter({
 					component: () => import("@/views/readall.vue"),
 				},
 				{
+					// 草稿箱
+					path: "readsaved",
+					name: "readsaved",
+					component: () => import("@/views/readsaved.vue"),
+				},
+				{
 					// 新建
 					path: "create",
 					name: "create",
