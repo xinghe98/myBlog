@@ -136,12 +136,14 @@ func (a *Article) DeleteOne(ctx *gin.Context) {
 		return
 	}
 	var article models.Article
-	dao.DB.Where("id=?", articleID).First(&article)
+	dao.DB.Where("id=?", articleID).Preload("Tags").First(&article)
 	if article.Title == "" {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这篇文章")
 		return
 	}
-	err := dao.DB.Delete(&models.Article{}, articleID).Error
+	// 删除文章的同时删除文章与标签的映射关系
+	err := dao.DB.Model(&article).Association("Tags").Delete(article.Tags)
+	err = dao.DB.Delete(&models.Article{}, articleID).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
 		return

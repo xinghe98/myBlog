@@ -30,7 +30,7 @@ func (a *TagCRUD) CreateOne(ctx *gin.Context) {
 	}
 	err = dao.DB.Create(&tag).Error
 	if err != nil {
-		if util.CheckDup(err) {
+		if util.CheckSqlErr(err) == 1062 {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, util.TransLate(err), "该标签已存在")
 			return
 		}
@@ -92,6 +92,10 @@ func (a *TagCRUD) DeleteOne(ctx *gin.Context) {
 	}
 	err := dao.DB.Delete(&models.Tags{}, tagid).Error
 	if err != nil {
+		if util.CheckSqlErr(err) == 1451 {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "该标签下有文章，不能删除")
+			return
+		}
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
 		return
 	}

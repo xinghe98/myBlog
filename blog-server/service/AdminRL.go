@@ -31,7 +31,7 @@ func (a *AdminRL) Sigup(ctx *gin.Context) {
 
 	err = dao.DB.Create(&user).Error
 	if err != nil {
-		if util.CheckDup(err) {
+		if util.CheckSqlErr(err) == 1062 {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, util.TransLate(err), "该用户名已被使用")
 			return
 		}
