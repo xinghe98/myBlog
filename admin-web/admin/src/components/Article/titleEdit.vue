@@ -5,13 +5,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { articleStore } from "@/store/articleStore";
 const input = ref("");
 const article = articleStore();
 const addtitle = () => {
 	article.title = input.value;
 };
+onMounted(() => {
+	input.value = article.title;
+});
 </script>
 
 <style scoped>

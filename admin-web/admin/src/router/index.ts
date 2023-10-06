@@ -69,6 +69,7 @@ router.beforeEach(async (to, form) => {
 		let res = confirm("离开此页面将会丢失已编辑的内容");
 		if (res) {
 			// 确认离开
+			article.$reset();
 			return true;
 		}
 		// 留在当前页面，销毁弹出框

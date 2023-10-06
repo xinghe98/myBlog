@@ -15,11 +15,17 @@ import Vditor from "vditor";
 import "vditor/dist/index.css";
 import { articleStore } from "@/store/articleStore";
 import { WarningFilled } from "@element-plus/icons-vue";
+import router from "@/router";
 const article = articleStore();
 const submitarticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = 1;
-	article.createArticle();
+	if (article.ID === 0) {
+		article.createArticle();
+	} else {
+		article.updateArticle(article.ID);
+	}
+	router.push("/admin/readall");
 	// console.log(vditor.value!.getValue());
 };
 

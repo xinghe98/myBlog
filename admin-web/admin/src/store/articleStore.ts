@@ -12,6 +12,25 @@ export const articleStore = defineStore("article", {
 		tags: [],
 	}),
 	actions: {
+		async updateArticle(id: number) {
+			try {
+				const res = await request.put(`/article/${id}`, {
+					title: this.title,
+					content: this.content,
+					status: this.status,
+					tags: this.tags,
+				});
+				ElMessage.success(res.data.msg);
+			} catch (e: any) {
+				if (e.response.data.data !== null) {
+					const keys = Object.keys(e.response.data.data);
+					ElMessage.error(e.response.data.data[keys[0]][0]);
+				} else {
+					ElMessage.error(e.response.data.msg);
+				}
+			}
+		},
+
 		async createArticle() {
 			try {
 				const res = await request.post("/article/create", {

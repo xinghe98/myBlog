@@ -41,7 +41,7 @@ type artdata = {
 	ID: number;
 	title: string;
 	content: string;
-	tags: never[];
+	Tags: never[];
 	status: number;
 };
 
@@ -50,7 +50,7 @@ const edit = async (article: artdata) => {
 	artStore.ID = article.ID;
 	artStore.title = article.title;
 	artStore.content = article.content;
-	artStore.tags = article.tags;
+	artStore.tags = article.Tags;
 	artStore.status = article.status;
 	router.push(`/admin/edit/${article.ID}`);
 };
