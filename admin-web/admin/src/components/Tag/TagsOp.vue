@@ -118,7 +118,7 @@ onMounted(async () => {
 .btn {
 	width: 380px;
 	margin: 10px auto;
-	padding: auto;
+	display: block;
 }
 .dialog-footer button:first-child {
 	margin-right: 10px;

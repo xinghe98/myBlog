@@ -50,13 +50,15 @@
 					<span>{{ admin.username }}</span>
 				</div>
 			</el-header>
-			<router-view />
+			<el-card class="card">
+				<router-view />
+			</el-card>
 		</el-container>
 	</el-container>
 </template>
 
 <script lang="ts" setup>
-import { Menu as IconMenu, Notebook, Setting, Fold, Expand } from "@element-plus/icons-vue";
+import { Notebook, Setting, Fold, Expand } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { adminStore } from "@/store/adminStore";
 import { useRouter } from "vue-router";
@@ -115,5 +117,14 @@ body {
 	width: 30px;
 	margin-top: 11px;
 	font-size: 32px;
+}
+.card {
+	margin: 10px;
+	margin-top: 10px;
+	height: 100%;
+	box-shadow: var(--el-box-shadow-light);
+}
+.el-aside {
+	box-shadow: var(--el-box-shadow-lighter);
 }
 </style>
