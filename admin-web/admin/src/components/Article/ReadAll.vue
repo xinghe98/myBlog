@@ -76,11 +76,12 @@ const del = async (article: artdata) => {
 };
 
 const data = ref<artdata[]>([]);
+const props = defineProps(["dataurl"]);
 onMounted(async () => {
-	const res = await request.get("/article/findall");
+	const res = await request.get(props.dataurl);
 	const allstatusData: artdata[] = res.data.data;
 	// 过滤出status为1的数据
-	data.value = allstatusData.filter((i) => i.status === 1);
+	data.value = allstatusData;
 	loading.value = false;
 });
 </script>
