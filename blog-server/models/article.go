@@ -12,6 +12,7 @@ type Article struct {
 	Title   string  `json:"title," form:"title" gorm:"column:title" binding:"required,max=50,min=1"`
 	Status  int8    `json:"status" form:"status" gorm:"column:status;comment:'-1:草稿 1:发布'" binding:"required"`
 	Content string  `json:"content" form:"content" gorm:"column:content;type:text" binding:"required"`
+	Image   string  `json:"image" form:"image" gorm:"column:image;default:'https://img-blog.csdnimg.cn/20210408155959900.png'"`
 }
 type Tags struct {
 	ID uint `gorm:"primarykey"`
