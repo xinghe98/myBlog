@@ -14,7 +14,11 @@ func GeneratePaginationFromRequest(c *gin.Context) (pagination models.Pageinatio
 	}
 
 	// 校验参数
-	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 {
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status == 0 {
+		return
+	}
+
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status != 0 {
 		return
 	}
 	if pagination.Limit < 0 {
@@ -26,6 +30,9 @@ func GeneratePaginationFromRequest(c *gin.Context) (pagination models.Pageinatio
 
 	if len(pagination.Sort) == 0 {
 		pagination.Sort = "created_at desc"
+	}
+	if pagination.Status < -1 || pagination.Status > 1 {
+		pagination.Status = 1
 	}
 
 	return

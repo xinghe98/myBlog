@@ -20,9 +20,12 @@ const article = articleStore();
 const submitarticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = 1;
+	// 判断是新建还是更新
 	if (article.ID === 0) {
+		// 新建
 		article.createArticle();
 	} else {
+		// 更新
 		article.updateArticle(article.ID);
 	}
 	router.push("/admin/readall");
@@ -32,7 +35,13 @@ const submitarticle = () => {
 const savearticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = -1;
-	article.createArticle();
+	if (article.ID === 0) {
+		// 新建
+		article.createArticle();
+	} else {
+		// 更新
+		article.updateArticle(article.ID);
+	}
 	router.push("/admin/readsaved");
 	// console.log(vditor.value!.getValue());
 };

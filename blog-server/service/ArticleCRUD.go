@@ -52,12 +52,13 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 
 // ReadAll 查找所有文章(分页)
 // INFO: 这里的分页是通过前端传来的参数来实现的，如果前端不传参数，那么就是查找所有文章
+// NOTE: 该service实现了4种查询方式，1.查询所有已发布文章,2.查询所有草稿箱文章,3.以上两种的分页查询,4.status值为0时查询所有文章(包括已发布和草稿箱)
 func (a *Article) ReadAll(ctx *gin.Context) {
 	pagination := util.GeneratePaginationFromRequest(ctx)
 	var article models.Article
 	var articles []models.Article
 	// 没有查询参数时查询所有文章
-	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 {
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status == 0 {
 		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
 			// select会将其他字段赋值为零值并返回，所以模型结构体需要加上json-tag
 			return DB.Debug().Select("ID", "Name")
@@ -67,11 +68,22 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 			return
 		}
 		httpresp.ResOK(ctx, articles)
-	} else {
-		offset := (pagination.Page - 1) * pagination.Limit
-		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
+	} else if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status != 0 {
+		// 查询所有文章(根据status)
+		err := dao.DB.Model(&article).Preload("Tags", func(DB *gorm.DB) *gorm.DB {
 			return DB.Debug().Select("ID", "Name")
-		}).Where(article).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
+		}).Where("status = ?", pagination.Status).Find(&articles).Error
+		if err != nil {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+			return
+		}
+		httpresp.ResOK(ctx, articles)
+	} else {
+		// 分页查询
+		offset := (pagination.Page - 1) * pagination.Limit
+		err := dao.DB.Model(&article).Preload("Tags", func(DB *gorm.DB) *gorm.DB {
+			return DB.Debug().Select("ID", "Name")
+		}).Where("status = ?", pagination.Status).Limit(pagination.Limit).Offset(offset).Order(pagination.Sort).Find(&articles).Error
 		if err != nil {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 			return
