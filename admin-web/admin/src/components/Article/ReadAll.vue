@@ -9,10 +9,7 @@
 					style="width: 250px"
 					:body-style="{ padding: '5px' }"
 				>
-					<img
-						src="https://pic.52112.com/2019/07/23/JPG-190723_759/mfvvEHO7sx_small.jpg"
-						class="image"
-					/>
+					<img :src="`${i.image}`" class="image" />
 					<div style="padding: 10px">
 						<span>{{ i.title }}</span>
 						<div class="bottom">
@@ -56,6 +53,7 @@ type artdata = {
 	content: string;
 	Tags: never[];
 	status: number;
+	image: string;
 };
 
 const edit = async (article: artdata) => {
@@ -107,6 +105,7 @@ onMounted(async () => {
 
 .image {
 	width: 100%;
+	height: 150px;
 	display: block;
 }
 </style>

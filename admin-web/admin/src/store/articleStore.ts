@@ -10,6 +10,7 @@ export const articleStore = defineStore("article", {
 		content: "# Hello World",
 		status: 0,
 		tags: [],
+		image: "",
 	}),
 	actions: {
 		async updateArticle(id: number) {
@@ -19,6 +20,7 @@ export const articleStore = defineStore("article", {
 					content: this.content,
 					status: this.status,
 					tags: this.tags,
+					image: this.image,
 				});
 				ElMessage.success(res.data.msg);
 			} catch (e: any) {
@@ -38,6 +40,7 @@ export const articleStore = defineStore("article", {
 					content: this.content,
 					status: this.status,
 					tags: this.tags,
+					image: this.image,
 				});
 				ElMessage.success(res.data.msg);
 			} catch (e: any) {

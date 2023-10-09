@@ -20,6 +20,14 @@ const article = articleStore();
 const submitarticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = 1;
+	// 使用正则匹配出文章中的第一张图片
+	const reg = /!\[.*\]\((.*)\)/;
+	const res = reg.exec(article.content);
+	if (res) {
+		article.image = res[1];
+	} else {
+		article.image = "";
+	}
 	// 判断是新建还是更新
 	if (article.ID === 0) {
 		// 新建
@@ -35,6 +43,14 @@ const submitarticle = () => {
 const savearticle = () => {
 	article.content = vditor.value!.getValue();
 	article.status = -1;
+	// 使用正则匹配出文章中的第一张图片
+	const reg = /!\[.*\]\((.*)\)/;
+	const res = reg.exec(article.content);
+	if (res) {
+		article.image = res[1];
+	} else {
+		article.image = "";
+	}
 	if (article.ID === 0) {
 		// 新建
 		article.createArticle();
