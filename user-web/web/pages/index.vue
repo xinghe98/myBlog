@@ -1,11 +1,4 @@
 <template>
-  <Tutorial />
+	<h2>this is index</h2>
+	<HelloWord />
 </template>
-
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
-  name: 'IndexPage',
-})
-</script>
