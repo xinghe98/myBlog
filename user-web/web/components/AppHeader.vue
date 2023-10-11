@@ -5,10 +5,11 @@
 			:router="true"
 			class="el-menu-demo"
 			mode="horizontal"
+			active-text-color="#95d475"
 			:ellipsis="false"
 			@select="handleSelect"
 		>
-			<el-menu-item index="0">LOGO</el-menu-item>
+			<img src="https://vuejs.org/images/logo.png" alt="Vue logo" />
 			<div class="flex-grow" />
 			<el-menu-item index="/">主页</el-menu-item>
 			<el-menu-item index="/post">文章</el-menu-item>
@@ -27,9 +28,15 @@ const handleSelect = (key: string, keyPath: string[]) => {
 .flex-grow {
 	flex-grow: 1;
 }
+#header img {
+	height: 40px;
+	margin-top: 10px;
+}
 #header {
 	height: 100%;
 	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 ul {
 	height: 100%;
