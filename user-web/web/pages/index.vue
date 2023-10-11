@@ -1,11 +1,20 @@
 <template>
 	<div class="common-layout">
 		<el-container>
-			<el-header>Header</el-header>
-			<el-main>Main</el-main>
-			<el-footer>Footer</el-footer>
+			<el-container>
+				<el-header>
+					<AppHeader />
+				</el-header>
+				<NuxtPage />
+			</el-container>
 		</el-container>
-		<el-button type="danger"> anniu </el-button>
+		<el-footer>Footer</el-footer>
 	</div>
-	<h2>this is index</h2>
 </template>
+
+<style scoped>
+.el-header {
+	height: 50px;
+	margin-top: 7px;
+}
+</style>

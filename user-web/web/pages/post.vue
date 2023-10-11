@@ -1,3 +1,3 @@
 <template>
-	<NuxtPage />
+	<h3>post</h3>
 </template>
