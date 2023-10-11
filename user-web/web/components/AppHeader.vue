@@ -1,7 +1,7 @@
 <template>
 	<div id="header">
 		<el-menu
-			:default-active="Index"
+			:default-active="route.path"
 			:router="true"
 			class="el-menu-demo"
 			mode="horizontal"
@@ -10,13 +10,14 @@
 		>
 			<el-menu-item index="0">LOGO</el-menu-item>
 			<div class="flex-grow" />
-			<el-menu-item index="/home">home</el-menu-item>
-			<el-menu-item index="/post">post</el-menu-item>
+			<el-menu-item index="/">主页</el-menu-item>
+			<el-menu-item index="/post">文章</el-menu-item>
 		</el-menu>
 	</div>
 </template>
 <script lang="ts" setup>
-const Index = ref("/home");
+import { useRoute } from "vue-router";
+const route = useRoute();
 const handleSelect = (key: string, keyPath: string[]) => {
 	console.log(key, keyPath);
 };
