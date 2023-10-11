@@ -9,6 +9,7 @@
 					/>
 				</el-carousel-item>
 			</el-carousel>
+			<SomeArticle />
 		</el-main>
 	</el-container>
 </template>

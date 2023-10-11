@@ -2,14 +2,16 @@
 	<el-config-provider :locale="locale">
 		<div class="common-layout">
 			<el-container>
-				<el-container>
-					<el-header style="height: 40px,marin:10px">
-						<AppHeader />
-					</el-header>
+				<el-header style="height: 55px; marin: 10px; padding: 0">
+					<AppHeader />
+				</el-header>
+				<el-main style="padding: 0">
 					<NuxtPage />
-				</el-container>
+				</el-main>
+				<el-footer style="padding: 0">
+					<AppFooter />
+				</el-footer>
 			</el-container>
-			<el-footer>Footer</el-footer>
 		</div>
 	</el-config-provider>
 </template>
@@ -38,8 +40,7 @@ html body {
 	margin: 0;
 	padding: 0;
 }
-.el-header {
-	margin: 0;
-	padding: 0;
+body {
+	background-color: #f0eeee;
 }
 </style>
