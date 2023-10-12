@@ -1,6 +1,6 @@
 <template>
-	<el-main style="display: flex; justify-content: center">
-		<el-container>
+	<main class="main">
+		<container class="container">
 			<div class="left">
 				<el-card shadow="hover" v-for="item in 3" :key="item">
 					<el-image
@@ -13,17 +13,18 @@
 			<div class="right">
 				<RightMain />
 			</div>
-		</el-container>
-	</el-main>
+		</container>
+	</main>
 </template>
 
 <script lang="ts" setup></script>
 
 <style scoped>
-.el-container {
+.main {
 	display: flex;
-	justify-content: space-between;
-	width: 1200px;
+	justify-content: center;
+	width: 100%;
+	margin-top: 15px;
 }
 .left {
 	width: calc(100% - 400px);
@@ -40,5 +41,10 @@
 }
 div {
 	display: block;
+}
+.container {
+	display: flex;
+	justify-content: space-between;
+	width: 1300px;
 }
 </style>

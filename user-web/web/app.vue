@@ -1,9 +1,11 @@
 <template>
 	<el-config-provider :locale="locale">
-		<div class="common-layout">
+		<div style="display: block">
 			<el-container>
 				<el-header style="height: 55px; marin: 10px; padding: 0">
-					<AppHeader />
+					<el-affix>
+						<AppHeader />
+					</el-affix>
 				</el-header>
 				<el-main style="padding: 0">
 					<NuxtPage />

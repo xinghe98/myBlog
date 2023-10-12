@@ -27,6 +27,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
 <style scoped>
 .flex-grow {
 	flex-grow: 1;
+	background-color: transparent;
+}
+.el-menu-demo {
+	background-color: transparent;
 }
 #header img {
 	height: 40px;
@@ -41,5 +45,8 @@ const handleSelect = (key: string, keyPath: string[]) => {
 ul {
 	height: 100%;
 	width: 100%;
+}
+.el-menu--horizontal.el-menu {
+	border-bottom: 0;
 }
 </style>
