@@ -1,3 +1,4 @@
+<!-- 读取所有已保存的文章 -->
 <template>
 	<readall :dataurl="url" />
 </template>

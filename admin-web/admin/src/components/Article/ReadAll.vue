@@ -1,4 +1,5 @@
 <template>
+	<el-empty v-if="nodata" description="这里是空的" />
 	<el-skeleton style="width: 240px" :loading="loading" animated>
 		<el-row>
 			<el-space wrap size="large">
@@ -46,6 +47,7 @@ import router from "@/router";
 
 const loading = ref(true);
 const artStore = articleStore();
+const nodata = ref(false);
 
 type artdata = {
 	ID: number;
@@ -81,6 +83,10 @@ onMounted(async () => {
 	// 过滤出status为1的数据
 	data.value = allstatusData;
 	loading.value = false;
+	// 判断数据是否为空
+	if (data.value.length === 0) {
+		nodata.value = true;
+	}
 });
 </script>
 

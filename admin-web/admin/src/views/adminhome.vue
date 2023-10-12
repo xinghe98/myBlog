@@ -1,3 +1,4 @@
+<!-- 该视图用于显示主页面的基本架构 -->
 <template>
 	<el-container class="layout-container-demo">
 		<el-aside width="auto">

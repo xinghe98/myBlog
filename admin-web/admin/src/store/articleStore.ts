@@ -11,6 +11,7 @@ export const articleStore = defineStore("article", {
 		status: 0,
 		tags: [],
 		image: "",
+		isheadlines: false,
 	}),
 	actions: {
 		async updateArticle(id: number) {
@@ -21,6 +22,7 @@ export const articleStore = defineStore("article", {
 					status: this.status,
 					tags: this.tags,
 					image: this.image,
+					isheadlines: this.isheadlines,
 				});
 				ElMessage.success(res.data.msg);
 			} catch (e: any) {
@@ -41,6 +43,7 @@ export const articleStore = defineStore("article", {
 					status: this.status,
 					tags: this.tags,
 					image: this.image,
+					isheadlines: this.isheadlines,
 				});
 				ElMessage.success(res.data.msg);
 			} catch (e: any) {

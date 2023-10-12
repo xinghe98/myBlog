@@ -24,6 +24,7 @@ declare module 'vue' {
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
+    ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -47,6 +48,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    HeaderlineSelect: typeof import('./src/components/Article/HeaderlineSelect.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     ReadAll: typeof import('./src/components/Article/ReadAll.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -54,6 +56,7 @@ declare module 'vue' {
     TagSelect: typeof import('./src/components/Article/TagSelect.vue')['default']
     TagsOp: typeof import('./src/components/Tag/TagsOp.vue')['default']
     TitleEdit: typeof import('./src/components/Article/titleEdit.vue')['default']
+    Uploadimg: typeof import('./src/components/headlines/uploadimg.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

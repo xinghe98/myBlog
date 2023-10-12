@@ -1,3 +1,4 @@
+<!-- 读取所有发布文章 -->
 <template>
 	<readall :dataurl="url" />
 </template>

@@ -1,6 +1,6 @@
 <template>
-	<div><span>选择文章标签:</span></div>
-	<div>
+	<div class="text"><span>选择文章标签:</span></div>
+	<div class="tags">
 		<el-checkbox-group v-model="checkedTags" @change="selectTags">
 			<el-checkbox v-for="tag in tags" :key="tag" :label="tag">{{ tag }}</el-checkbox>
 		</el-checkbox-group>
@@ -39,7 +39,16 @@ onMounted(async () => {
 	padding-right: 10px;
 }
 div {
-	padding-left: 5px;
+	padding-left: 4px;
 	padding-right: 5px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+}
+.text {
+	display: inline-block;
+	font-size: 16px;
+}
+.tags {
+	display: inline-block;
 }
 </style>
