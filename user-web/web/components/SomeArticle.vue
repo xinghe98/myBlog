@@ -1,6 +1,6 @@
 <template>
 	<main class="main">
-		<container class="container">
+		<div class="container">
 			<div class="left">
 				<el-card shadow="hover" v-for="item in 3" :key="item">
 					<el-image
@@ -13,7 +13,7 @@
 			<div class="right">
 				<RightMain />
 			</div>
-		</container>
+		</div>
 	</main>
 </template>
 
