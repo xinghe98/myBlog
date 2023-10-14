@@ -10,8 +10,10 @@ export const articleStore = defineStore("article", {
 		content: "# Hello World",
 		status: 0,
 		tags: [],
-		image: "",
+		img: "", // 普通封面
+		headimg: "", // 头条封面
 		isheadlines: false,
+		isSuccess: false, //是否提交成功
 	}),
 	actions: {
 		async updateArticle(id: number) {
@@ -21,10 +23,12 @@ export const articleStore = defineStore("article", {
 					content: this.content,
 					status: this.status,
 					tags: this.tags,
-					image: this.image,
+					image: this.img,
+					headimg: this.headimg,
 					isheadlines: this.isheadlines,
 				});
 				ElMessage.success(res.data.msg);
+				this.isSuccess = true;
 			} catch (e: any) {
 				if (e.response.data.data !== null) {
 					const keys = Object.keys(e.response.data.data);
@@ -32,6 +36,7 @@ export const articleStore = defineStore("article", {
 				} else {
 					ElMessage.error(e.response.data.msg);
 				}
+				this.isSuccess = false;
 			}
 		},
 
@@ -42,10 +47,12 @@ export const articleStore = defineStore("article", {
 					content: this.content,
 					status: this.status,
 					tags: this.tags,
-					image: this.image,
+					image: this.img,
+					headimg: this.headimg,
 					isheadlines: this.isheadlines,
 				});
 				ElMessage.success(res.data.msg);
+				this.isSuccess = true;
 			} catch (e: any) {
 				if (e.response.data.data !== null) {
 					const keys = Object.keys(e.response.data.data);
@@ -53,6 +60,7 @@ export const articleStore = defineStore("article", {
 				} else {
 					ElMessage.error(e.response.data.msg);
 				}
+				this.isSuccess = false;
 			}
 		},
 	},

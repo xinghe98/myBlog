@@ -12,7 +12,8 @@ type Article struct {
 	Title   string  `json:"title," form:"title" gorm:"column:title" binding:"required,max=50,min=1"`
 	Status  int8    `json:"status" form:"status" gorm:"column:status;comment:'-1:草稿 1:发布'" binding:"required"`
 	Content string  `json:"content" form:"content" gorm:"column:content;type:text" binding:"required"`
-	Image   string  `json:"image" form:"image" gorm:"column:image;default:'https://img-blog.csdnimg.cn/20210408155959900.png'"`
+	Image   string  `json:"image" form:"image" gorm:"column:image;default:'https://aioseo.com/wp-content/uploads/2021/04/how-to-find-and-fix-404-errors-in-wordpress.png'"`
+	HeadImg string  `json:"headimg" form:"headimg" gorm:"column:head_img;default:''"`
 }
 type Tags struct {
 	ID uint `gorm:"primarykey"`

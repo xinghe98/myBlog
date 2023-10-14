@@ -48,6 +48,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     HeaderlineSelect: typeof import('./src/components/Article/HeaderlineSelect.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     ReadAll: typeof import('./src/components/Article/ReadAll.vue')['default']
@@ -56,7 +57,7 @@ declare module 'vue' {
     TagSelect: typeof import('./src/components/Article/TagSelect.vue')['default']
     TagsOp: typeof import('./src/components/Tag/TagsOp.vue')['default']
     TitleEdit: typeof import('./src/components/Article/titleEdit.vue')['default']
-    Uploadimg: typeof import('./src/components/headlines/uploadimg.vue')['default']
+    Uploadimg: typeof import('./src/components/Article/uploadimg.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

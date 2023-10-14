@@ -56,6 +56,7 @@ type artdata = {
 	Tags: never[];
 	status: number;
 	image: string;
+	headimg: string;
 };
 
 const edit = async (article: artdata) => {
@@ -65,6 +66,8 @@ const edit = async (article: artdata) => {
 	artStore.content = article.content;
 	artStore.tags = article.Tags;
 	artStore.status = article.status;
+	artStore.img = article.image;
+	artStore.headimg = article.headimg;
 	router.push(`/admin/edit/${article.ID}`);
 };
 

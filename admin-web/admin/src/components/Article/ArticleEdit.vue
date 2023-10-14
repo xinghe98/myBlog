@@ -17,48 +17,52 @@ import { articleStore } from "@/store/articleStore";
 import { WarningFilled } from "@element-plus/icons-vue";
 import router from "@/router";
 const article = articleStore();
-const submitarticle = () => {
+const submitarticle = async () => {
 	article.content = vditor.value!.getValue();
 	article.status = 1;
 	// 使用正则匹配出文章中的第一张图片
 	const reg = /!\[.*\]\((.*)\)/;
 	const res = reg.exec(article.content);
 	if (res) {
-		article.image = res[1];
+		article.img = res[1];
 	} else {
-		article.image = "";
+		article.img = "";
 	}
 	// 判断是新建还是更新
 	if (article.ID === 0) {
 		// 新建
-		article.createArticle();
+		await article.createArticle();
 	} else {
 		// 更新
-		article.updateArticle(article.ID);
+		await article.updateArticle(article.ID);
 	}
-	router.push("/admin/readall");
+	if (article.isSuccess) {
+		router.push("/admin/readall");
+	}
 	// console.log(vditor.value!.getValue());
 };
 
-const savearticle = () => {
+const savearticle = async () => {
 	article.content = vditor.value!.getValue();
 	article.status = -1;
 	// 使用正则匹配出文章中的第一张图片
 	const reg = /!\[.*\]\((.*)\)/;
 	const res = reg.exec(article.content);
 	if (res) {
-		article.image = res[1];
+		article.img = res[1];
 	} else {
-		article.image = "";
+		article.img = "";
 	}
 	if (article.ID === 0) {
 		// 新建
-		article.createArticle();
+		await article.createArticle();
 	} else {
 		// 更新
-		article.updateArticle(article.ID);
+		await article.updateArticle(article.ID);
 	}
-	router.push("/admin/readsaved");
+	if (article.isSuccess) {
+		router.push("/admin/readsaved");
+	}
 	// console.log(vditor.value!.getValue());
 };
 

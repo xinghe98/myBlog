@@ -40,7 +40,11 @@ func (a *Article) CreateOne(ctx *gin.Context) {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "请选择正确的标签")
 		return
 	}
-	article.Tags = tags                 // 将查找到的tag赋值给文章的tag
+	article.Tags = tags // 将查找到的tag赋值给文章的tag
+	// 判断是否存在headerlineimg
+	if article.HeadImg != "" {
+		article.Image = "https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/" + article.HeadImg
+	}
 	err = dao.DB.Create(&article).Error // 创建文章
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
@@ -132,6 +136,9 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 	dao.DB.Model(&findarticle).Association("Tags").Replace(tags)
 
 	// 3. 最后更新文章的其他内容
+	if findarticle.HeadImg != "" {
+		updatearticle.Image = "https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/" + findarticle.HeadImg
+	}
 	err = dao.DB.Model(&findarticle).Updates(&updatearticle).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
