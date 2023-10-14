@@ -61,6 +61,11 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 	pagination := util.GeneratePaginationFromRequest(ctx)
 	var article models.Article
 	var articles []models.Article
+	var total int64
+
+	// 查询所有已发布文章总数
+	dao.DB.Model(&article).Where("status = ?", 1).Count(&total)
+
 	// 没有查询参数时查询所有文章
 	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status == 0 {
 		err := dao.DB.Preload("Tags", func(DB *gorm.DB) *gorm.DB {
@@ -71,7 +76,7 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 			return
 		}
-		httpresp.ResOK(ctx, articles)
+		httpresp.ResOK(ctx, gin.H{"articles": articles, "total": total, "current_page_size": len(articles), "page": pagination.Page, "limit": pagination.Limit})
 	} else if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status != 0 {
 		// 查询所有文章(根据status)
 		err := dao.DB.Model(&article).Preload("Tags", func(DB *gorm.DB) *gorm.DB {
@@ -81,7 +86,7 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 			return
 		}
-		httpresp.ResOK(ctx, articles)
+		httpresp.ResOK(ctx, gin.H{"articles": articles, "total": total, "current_page_size": len(articles), "page": pagination.Page, "limit": pagination.Limit})
 	} else {
 		// 分页查询
 		offset := (pagination.Page - 1) * pagination.Limit
@@ -92,7 +97,7 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
 			return
 		}
-		httpresp.ResOK(ctx, articles)
+		httpresp.ResOK(ctx, gin.H{"articles": articles, "total": total, "current_page_size": len(articles), "page": pagination.Page, "limit": pagination.Limit})
 	}
 }
 

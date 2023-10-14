@@ -33,6 +33,15 @@
 					</div>
 				</el-card>
 			</el-space>
+			<el-pagination
+				v-if="total > 10 && !nodata"
+				style="margin-top: 30px; margin-left: auto"
+				background
+				layout="prev, pager, next"
+				:total="total"
+				:page-size="10"
+				@current-change="handleCurrentChange"
+			/>
 		</el-row>
 	</el-skeleton>
 </template>
@@ -48,6 +57,9 @@ import router from "@/router";
 const loading = ref(true);
 const artStore = articleStore();
 const nodata = ref(false);
+const total = ref(0);
+const data = ref<artdata[]>([]);
+const props = defineProps(["dataurl"]);
 
 type artdata = {
 	ID: number;
@@ -78,13 +90,17 @@ const del = async (article: artdata) => {
 	}
 };
 
-const data = ref<artdata[]>([]);
-const props = defineProps(["dataurl"]);
+const handleCurrentChange = async (page: number) => {
+	const res: any = await request.get(props.dataurl.replace("page=1", `page=${page}`));
+	data.value = res.data.data.articles;
+};
+
 onMounted(async () => {
 	const res = await request.get(props.dataurl);
-	const allstatusData: artdata[] = res.data.data;
+	const allstatusData: artdata[] = res.data.data.articles;
 	// 过滤出status为1的数据
 	data.value = allstatusData;
+	total.value = res.data.data.total;
 	loading.value = false;
 	// 判断数据是否为空
 	if (data.value.length === 0) {

@@ -5,5 +5,5 @@
 <script lang="ts" setup>
 import { defineAsyncComponent } from "vue";
 const readall = defineAsyncComponent(() => import("@/components/Article/ReadAll.vue"));
-const url = "/article/findall?status=1";
+const url = "/article/findall?status=1&page=1&limit=10";
 </script>
