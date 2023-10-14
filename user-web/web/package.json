@@ -11,12 +11,14 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "axios": "^1.5.1",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@element-plus/nuxt": "^1.0.6",
+    "@types/axios": "^0.14.0",
     "@vitejs/plugin-vue": "^4.4.0",
     "element-plus": "^2.3.14"
   }

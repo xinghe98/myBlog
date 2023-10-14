@@ -4,7 +4,9 @@ import (
 	"log"
 	"net/http"
 
+	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
+	"myBlogServer/v1/models"
 	"myBlogServer/v1/util"
 
 	"github.com/gin-gonic/gin"
@@ -50,4 +52,16 @@ func DeleteImg(ctx *gin.Context) {
 	}
 
 	httpresp.ResOK(ctx, gin.H{"msg": "删除成功！", "success": true})
+}
+
+// 查询所有有headlineimg的文章
+func ReadAllHeadImgArt(ctx *gin.Context) {
+	// 查询所有有headlineimg的文章
+	var articles []models.Article
+	err := dao.DB.Where("head_img != ?", "").Find(&articles).Error
+	if err != nil {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"articles": articles})
 }

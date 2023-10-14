@@ -19,7 +19,6 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	article.Use(middleware.JwtAuth())
 	{
 		article.POST("create", controller.ArticleCRUD.AddArticle)
-		article.GET("findall", controller.ArticleCRUD.AllArticle)
 		article.PUT(":aid", controller.ArticleCRUD.UpdateArticle)
 		article.DELETE(":aid", controller.ArticleCRUD.DeleteArticle)
 	}

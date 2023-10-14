@@ -103,21 +103,21 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
 		return
 	}
-	var findarticle models.Article
-	var updatearticle models.Article
+	var oldarticle models.Article
+	var newarticle models.Article
 	var tags []*models.Tags
-	dao.DB.Where("id=?", articleid).First(&findarticle)
-	if findarticle.Title == "" {
+	dao.DB.Where("id=?", articleid).First(&oldarticle)
+	if oldarticle.Title == "" {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这篇文章")
 		return
 	}
-	err := ctx.ShouldBindJSON(&updatearticle)
+	err := ctx.ShouldBindJSON(&newarticle)
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, util.TransLate(err), "数据不合法")
 		fmt.Println(err)
 		return
 	}
-	taglist := updatearticle.Tags // 获取前端传来的tag数组
+	taglist := newarticle.Tags // 获取前端传来的tag数组
 	tag := make([]string, len(taglist))
 	for i, v := range taglist {
 		tag[i] = v.Name
@@ -129,17 +129,17 @@ func (a *Article) UpdateOne(ctx *gin.Context) {
 	}
 
 	// 1. 更新标签需要先删除原因映射关系
-	err = dao.DB.Preload("Tags").Take(&findarticle, articleid).Error
-	dao.DB.Model(&findarticle).Association("Tags").Delete(findarticle.Tags)
+	err = dao.DB.Preload("Tags").Take(&oldarticle, articleid).Error
+	dao.DB.Model(&oldarticle).Association("Tags").Delete(oldarticle.Tags)
 
 	// 2. 再重建映射关系
-	dao.DB.Model(&findarticle).Association("Tags").Replace(tags)
+	dao.DB.Model(&oldarticle).Association("Tags").Replace(tags)
 
 	// 3. 最后更新文章的其他内容
-	if findarticle.HeadImg != "" {
-		updatearticle.Image = "https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/" + findarticle.HeadImg
+	if newarticle.HeadImg != "" {
+		newarticle.Image = "https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/" + newarticle.HeadImg
 	}
-	err = dao.DB.Model(&findarticle).Updates(&updatearticle).Error
+	err = dao.DB.Model(&oldarticle).Updates(&newarticle).Error
 	if err != nil {
 		httpresp.ResOthers(ctx, http.StatusNotExtended, nil, "未预期错误")
 		return

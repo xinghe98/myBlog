@@ -2,17 +2,38 @@
 	<el-container>
 		<el-main>
 			<el-carousel height="700px" :interval="8000" arrow="hover">
-				<el-carousel-item>
-					<img
-						src="http://image.fengfengzhidao.com/1001/20231006164747__shouhuiyuhangyuan123.png"
-						alt=""
-					/>
+				<el-carousel-item v-for="data in headline" :key="data.ID">
+					<a :href="`/article/${data.ID}`" target="_blank">
+						<img
+							:src="`https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/${data.headimg}`"
+							alt=""
+						/>
+						<div class="vcenter">{{ data.title }}</div>
+					</a>
 				</el-carousel-item>
 			</el-carousel>
 			<SomeArticle />
 		</el-main>
 	</el-container>
 </template>
+
+<script setup lang="ts">
+import request from "~/util/requests";
+
+type Headline = {
+	headimg: string;
+	status: number;
+	ID: number;
+	title: string;
+};
+const headline = ref<Headline[]>([]);
+
+onMounted(async () => {
+	const res = await request.get("/headline");
+	headline.value = res.data.data.articles;
+});
+</script>
+
 <style scoped>
 .el-main {
 	padding: 0;
@@ -24,5 +45,15 @@
 	object-fit: cover;
 	margin: 0;
 	padding: 0;
+}
+.vcenter {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-10%, -10%);
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+	font-family: "Consolas";
 }
 </style>
