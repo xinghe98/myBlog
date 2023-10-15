@@ -2,13 +2,53 @@
 	<main class="main">
 		<div class="container">
 			<div class="left">
-				<el-card shadow="hover" v-for="item in 3" :key="item">
+				<el-card style="display: flex" shadow="hover" v-for="item in data" :key="item.ID">
 					<el-image
 						fit="cover"
-						style="width: 179px; height: 110px"
-						src="https://i.pinimg.com/564x/06/31/3d/06313d8db718ae9d82503d09caf5cee9.jpg"
+						style="width: 179px; height: 110px; display: flex; border-radius: 5px"
+						:src="`${item.image}`"
 					></el-image>
+					<div class="cardofinfo">
+						<div class="title">
+							<a :href="`/article/${item.ID}`" target="_blank">
+								{{ item.title }}
+							</a>
+						</div>
+						<div class="content">
+							{{ item.content.slice(0, 100) }}
+						</div>
+						<div class="data">
+							<span class="tags">
+								<el-tag
+									style="margin: 3px; display: flex"
+									v-for="tag in item.Tags"
+									type="success"
+									:key="tag.ID"
+									effect="light"
+									round
+								>
+									{{ tag.name }}
+								</el-tag>
+							</span>
+							<span class="date">
+								<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
+									<Edit />
+								</el-icon>
+								{{ item.UpdatedAt.slice(0, 10) }}
+							</span>
+						</div>
+					</div>
 				</el-card>
+				<div class="page">
+					<el-pagination
+						v-if="total > 10"
+						background
+						layout="prev, pager, next"
+						:total="total"
+						:page-size="10"
+						@current-change="handleCurrentChange"
+					/>
+				</div>
 			</div>
 			<div class="right">
 				<RightMain />
@@ -17,9 +57,45 @@
 	</main>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import request from "~/util/requests";
+import { Edit } from "@element-plus/icons-vue";
+type tagdata = {
+	ID: number;
+	name: string;
+};
+type artdata = {
+	ID: number;
+	title: string;
+	content: string;
+	Tags: tagdata[];
+	status: number;
+	image: string;
+	headimg: string;
+	UpdatedAt: string;
+};
+let dataurl = "/article/findall?status=1&page=1&limit=10";
+const total = ref(0);
+const data = ref<artdata[]>([]);
+
+const handleCurrentChange = async (page: number) => {
+	const res: any = await request.get(dataurl.replace("page=1", `page=${page}`));
+	data.value = res.data.data.articles;
+};
+
+onMounted(async () => {
+	const res = await request.get(dataurl);
+	const allstatusData: artdata[] = res.data.data.articles;
+	data.value = allstatusData;
+	total.value = res.data.data.total;
+});
+</script>
 
 <style scoped>
+a {
+	color: #000;
+	text-decoration: none;
+}
 .main {
 	display: flex;
 	justify-content: center;
@@ -31,7 +107,7 @@
 }
 .el-card {
 	margin: 10px;
-	padding: 0;
+	display: flex;
 }
 .right {
 	width: 380px;
@@ -46,5 +122,53 @@ div {
 	display: flex;
 	justify-content: space-between;
 	width: 1300px;
+}
+.page {
+	display: flex;
+	justify-content: center;
+	margin: 24px;
+}
+.el-pagination {
+	display: flex;
+	align-items: center;
+}
+
+.el-card ::v-deep(.el-card__body) {
+	display: flex;
+}
+
+.el-card ::v-deep(.el-card__body) .cardofinfo {
+	padding-left: 20px;
+	color: (78, 89, 105);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 480px;
+	height: 135px;
+}
+
+.el-card ::v-deep(.el-card__body) .cardofinfo .title {
+	font-size: 20px;
+	font-weight: 600;
+}
+.el-card ::v-deep(.el-card__body) .cardofinfo .content {
+	margin-top: 10px;
+}
+.data {
+	display: flex;
+	align-items: center;
+	margin-top: 5px;
+	justify-content: space-between;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.date {
+	color: #909399;
+	font-size: 14px;
+	margin-right: 15px;
 }
 </style>
