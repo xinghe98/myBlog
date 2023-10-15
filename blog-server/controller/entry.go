@@ -6,4 +6,5 @@ var (
 	AdminResAndLogin = NewAdmin(service.NewAdminService())
 	ArticleCRUD      = NewArticleCO(service.NewArticle())
 	TagsCRUD         = NewTagCo(service.NewTags())
+	ImgCD            = NewImgCo(service.NewImgCD())
 )

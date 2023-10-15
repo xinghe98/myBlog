@@ -32,12 +32,11 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 		tags.PUT(":id", controller.TagsCRUD.UpdateTag)
 		tags.DELETE(":id", controller.TagsCRUD.DeleteTag)
 	}
-	// 图片的上传与删除，因为只有两个方法且不会再有类似的控制器，所以没有使用interface做依赖注入
 	img := r.Group("/img/")
 	img.Use(middleware.JwtAuth())
 	{
-		img.POST("upload", controller.UploadImg)
-		img.DELETE(":key", controller.DeleteImg)
+		img.POST("upload", controller.ImgCD.UploadImg)
+		img.DELETE(":key", controller.ImgCD.DeleteImg)
 	}
 	return r
 }

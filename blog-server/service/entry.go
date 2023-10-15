@@ -18,3 +18,9 @@ type Cruder interface {
 type MazyFinder interface {
 	ReadWithAnother(ctx *gin.Context)
 }
+
+type ImgCDer interface {
+	UploadImg(ctx *gin.Context)
+	DeleteImg(ctx *gin.Context)
+	ReadAllHeadImgArt(ctx *gin.Context)
+}

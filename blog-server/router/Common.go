@@ -9,7 +9,7 @@ import (
 
 func CommonRouter(r *gin.Engine) *gin.Engine {
 	// 所有headline
-	r.GET("/headline", controller.ReadAllHeadImgArt)
+	r.GET("/headline", controller.ImgCD.GetAllHeadline)
 	article := r.Group("/article/")
 	{
 		// 查询所有文章
