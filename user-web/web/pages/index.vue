@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import request from "~/util/requests";
+import { request, articlesData } from "~/util/requests";
 type Article = {
 	headimg: string;
 	status: number;
@@ -29,7 +29,7 @@ type Article = {
 const headline = ref<Article[]>([]);
 
 const { data } = await request<Article>("/headline");
-headline.value = data.value!.data.articles;
+headline.value = (data.value!.data as articlesData<Article>).articles;
 </script>
 
 <style scoped>

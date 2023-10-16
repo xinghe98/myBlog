@@ -1,10 +1,10 @@
 import { useFetch } from "nuxt/app";
 interface Res<T> {
 	code: number;
-	data: responseData<T>;
+	data: articlesData<T> | T;
 	msg: string;
 }
-interface responseData<T> {
+export interface articlesData<T> {
 	articles: T[];
 	current_page_size: number;
 	limit: number;
@@ -12,8 +12,6 @@ interface responseData<T> {
 	total: number;
 }
 
-const request = async <K>(path: string) => {
+export const request = async <K>(path: string) => {
 	return await useFetch<Res<K>>(() => `http://127.0.0.1:3001${path}`);
 };
-
-export default request;

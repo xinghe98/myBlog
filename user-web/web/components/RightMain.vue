@@ -3,16 +3,32 @@
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>Card name</span>
+					<span>所有标签</span>
 					<!--
 					<el-button class="button" text>Operation button</el-button>
 					-->
 				</div>
 			</template>
-			<div v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</div>
+			<div v-for="tag in tags" :key="tag.ID" class="text item">
+				<el-tag type="info">{{ tag.name }}</el-tag>
+			</div>
 		</el-card>
 	</div>
 </template>
+
+<script lang="ts" setup>
+import { request } from "~/util/requests";
+
+type tagdata = {
+	ID: number;
+	name: string;
+};
+
+const tags = ref<tagdata[]>([]);
+
+const { data } = await request<tagdata[]>("/tags/findall");
+tags.value = data.value!.data as tagdata[];
+</script>
 
 <style scoped>
 .block {
@@ -23,7 +39,7 @@ div {
 }
 .card-header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -33,5 +49,11 @@ div {
 
 .item {
 	margin-bottom: 18px;
+	margin: 10px;
+}
+.el-card ::v-deep(.el-card__body) {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 </style>

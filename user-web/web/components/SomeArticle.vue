@@ -58,8 +58,8 @@
 </template>
 
 <script lang="ts" setup>
-import request from "~/util/requests";
 import { Edit } from "@element-plus/icons-vue";
+import { request, articlesData } from "~/util/requests";
 type tagdata = {
 	ID: number;
 	name: string;
@@ -80,13 +80,13 @@ const postData = ref<artdata[]>([]);
 
 const handleCurrentChange = async (page: number) => {
 	const { data } = await request<artdata>(dataurl.replace("page=1", `page=${page}`));
-	postData.value = data.value!.data.articles;
+	postData.value = (data.value!.data as articlesData<artdata>).articles;
 };
 
 const { data } = await request<artdata>(dataurl);
-const allstatusData: artdata[] = data.value!.data.articles;
+const allstatusData: artdata[] = (data.value!.data as articlesData<artdata>).articles;
 postData.value = allstatusData;
-total.value = data.value!.data.total;
+total.value = (data.value!.data as articlesData<artdata>).total;
 </script>
 
 <style scoped>
@@ -141,8 +141,7 @@ div {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 480px;
-	height: 135px;
+	width: 520px;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo .title {

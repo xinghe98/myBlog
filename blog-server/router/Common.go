@@ -15,5 +15,12 @@ func CommonRouter(r *gin.Engine) *gin.Engine {
 		// 查询所有文章
 		article.GET("findall", controller.ArticleCRUD.AllArticle)
 	}
+	tags := r.Group("/tags/")
+	{
+
+		// 查询所有标签
+		tags.GET("findall", controller.TagsCRUD.ReadTag)
+		tags.GET("findwith", controller.TagsCRUD.MazyFind)
+	}
 	return r
 }
