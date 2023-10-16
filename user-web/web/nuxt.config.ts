@@ -7,4 +7,9 @@ export default defineNuxtConfig({
 			customElement: true,
 		},
 	},
+	runtimeConfig: {
+		public: {
+			baseURL: "http://localhost:3001",
+		},
+	},
 });

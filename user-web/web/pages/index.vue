@@ -19,19 +19,17 @@
 
 <script setup lang="ts">
 import request from "~/util/requests";
-
-type Headline = {
+type Article = {
 	headimg: string;
 	status: number;
 	ID: number;
 	title: string;
 };
-const headline = ref<Headline[]>([]);
 
-onMounted(async () => {
-	const res = await request.get("/headline");
-	headline.value = res.data.data.articles;
-});
+const headline = ref<Article[]>([]);
+
+const { data } = await request<Article>("/headline");
+headline.value = data.value!.data.articles;
 </script>
 
 <style scoped>

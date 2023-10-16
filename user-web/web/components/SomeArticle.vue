@@ -2,7 +2,7 @@
 	<main class="main">
 		<div class="container">
 			<div class="left">
-				<el-card style="display: flex" shadow="hover" v-for="item in data" :key="item.ID">
+				<el-card style="display: flex" shadow="hover" v-for="item in postData" :key="item.ID">
 					<el-image
 						fit="cover"
 						style="width: 179px; height: 110px; display: flex; border-radius: 5px"
@@ -76,19 +76,17 @@ type artdata = {
 };
 let dataurl = "/article/findall?status=1&page=1&limit=10";
 const total = ref(0);
-const data = ref<artdata[]>([]);
+const postData = ref<artdata[]>([]);
 
 const handleCurrentChange = async (page: number) => {
-	const res: any = await request.get(dataurl.replace("page=1", `page=${page}`));
-	data.value = res.data.data.articles;
+	const { data } = await request<artdata>(dataurl.replace("page=1", `page=${page}`));
+	postData.value = data.value!.data.articles;
 };
 
-onMounted(async () => {
-	const res = await request.get(dataurl);
-	const allstatusData: artdata[] = res.data.data.articles;
-	data.value = allstatusData;
-	total.value = res.data.data.total;
-});
+const { data } = await request<artdata>(dataurl);
+const allstatusData: artdata[] = data.value!.data.articles;
+postData.value = allstatusData;
+total.value = data.value!.data.total;
 </script>
 
 <style scoped>
