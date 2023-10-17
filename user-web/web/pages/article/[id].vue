@@ -1,0 +1,77 @@
+<template>
+	<main>
+		<div class="container">
+			<div class="aside">
+				<ElCard shadow="never">
+					<template #header>
+						<div class="card-header">
+							<span style="font-size: 18px; font-weight: 600">文章目录</span>
+						</div>
+					</template>
+					<client-only>
+						<MdCatalog :editorId="md_moudle" />
+					</client-only>
+				</ElCard>
+			</div>
+			<div class="article">
+				<MdPreview
+					:preview-theme="preview_theme"
+					:code-theme="code_theme"
+					:editor-id="md_moudle"
+					:model-value="article.content"
+				/>
+			</div>
+		</div>
+	</main>
+</template>
+
+<script setup lang="ts">
+import { useRoute } from "vue-router";
+import { articlesData, request } from "~/util/requests";
+import { MdPreview, MdCatalog } from "md-editor-v3";
+import "md-editor-v3/lib/preview.css";
+
+const route = useRoute();
+const id = route.params.id;
+const preview_theme = "cyanosis";
+const code_theme = "atom";
+
+interface article {
+	ID: number;
+	title: string;
+	content: string;
+	status: number;
+	image: string;
+	headimg: string;
+	UpdatedAt: string;
+}
+
+const md_moudle = "preview-only";
+
+const { data } = await request<article>("/article/" + id);
+console.log(data.value!.data);
+const article = (data.value!.data as articlesData<article>).articles;
+</script>
+
+<style scoped>
+main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: #f0eeee;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+main .container {
+	width: 1200px;
+	display: flex;
+	justify-content: space-between;
+}
+.container .article {
+	width: calc(100% - 320px);
+}
+.container .aside {
+	width: 300px;
+}
+</style>

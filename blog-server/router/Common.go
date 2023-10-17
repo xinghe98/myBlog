@@ -14,6 +14,7 @@ func CommonRouter(r *gin.Engine) *gin.Engine {
 	{
 		// 查询所有文章
 		article.GET("findall", controller.ArticleCRUD.AllArticle)
+		article.GET(":aid", controller.ArticleCRUD.OneArticle)
 	}
 	tags := r.Group("/tags/")
 	{
@@ -21,6 +22,7 @@ func CommonRouter(r *gin.Engine) *gin.Engine {
 		// 查询所有标签
 		tags.GET("findall", controller.TagsCRUD.ReadTag)
 		tags.GET("findwith", controller.TagsCRUD.MazyFind)
+		tags.GET(":id", controller.TagsCRUD.ReadOneTag)
 	}
 	return r
 }

@@ -28,8 +28,8 @@ type Article = {
 
 const headline = ref<Article[]>([]);
 
-const { data } = await request<Article>("/headline");
-headline.value = (data.value!.data as articlesData<Article>).articles;
+const { data } = await request<Article[]>("/headline");
+headline.value = (data.value!.data as articlesData<Article[]>).articles;
 </script>
 
 <style scoped>

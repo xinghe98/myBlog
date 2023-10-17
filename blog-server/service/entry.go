@@ -12,6 +12,7 @@ type Cruder interface {
 	ReadAll(ctx *gin.Context)
 	UpdateOne(ctx *gin.Context)
 	DeleteOne(ctx *gin.Context)
+	ReadOne(ctx *gin.Context)
 	MazyFinder
 }
 

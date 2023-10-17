@@ -79,14 +79,14 @@ const total = ref(0);
 const postData = ref<artdata[]>([]);
 
 const handleCurrentChange = async (page: number) => {
-	const { data } = await request<artdata>(dataurl.replace("page=1", `page=${page}`));
-	postData.value = (data.value!.data as articlesData<artdata>).articles;
+	const { data } = await request<artdata[]>(dataurl.replace("page=1", `page=${page}`));
+	postData.value = (data.value!.data as articlesData<artdata[]>).articles;
 };
 
-const { data } = await request<artdata>(dataurl);
-const allstatusData: artdata[] = (data.value!.data as articlesData<artdata>).articles;
+const { data } = await request<artdata[]>(dataurl);
+const allstatusData: artdata[] = (data.value!.data as articlesData<artdata[]>).articles;
 postData.value = allstatusData;
-total.value = (data.value!.data as articlesData<artdata>).total;
+total.value = (data.value!.data as articlesData<artdata[]>).total;
 </script>
 
 <style scoped>

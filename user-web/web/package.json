@@ -18,6 +18,7 @@
 	"dependencies": {
 		"@element-plus/nuxt": "^1.0.6",
 		"@vitejs/plugin-vue": "^4.4.0",
-		"element-plus": "^2.3.14"
+		"element-plus": "^2.3.14",
+		"md-editor-v3": "^4.8.1"
 	}
 }

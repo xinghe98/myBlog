@@ -5,7 +5,7 @@ interface Res<T> {
 	msg: string;
 }
 export interface articlesData<T> {
-	articles: T[];
+	articles: T;
 	current_page_size: number;
 	limit: number;
 	page: number;

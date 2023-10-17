@@ -101,6 +101,22 @@ func (a *Article) ReadAll(ctx *gin.Context) {
 	}
 }
 
+// ReadOne 查找一篇文章
+func (a *Article) ReadOne(ctx *gin.Context) {
+	articleid, ok := ctx.Params.Get("aid")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var article models.Article
+	dao.DB.Where("id=?", articleid).Preload("Tags").First(&article)
+	if article.Title == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这篇文章")
+		return
+	}
+	httpresp.ResOK(ctx, gin.H{"articles": article})
+}
+
 // UpdateOne 更新一篇文章
 func (a *Article) UpdateOne(ctx *gin.Context) {
 	articleid, ok := ctx.Params.Get("aid")

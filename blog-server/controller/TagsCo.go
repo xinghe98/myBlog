@@ -24,6 +24,11 @@ func (t tagsco) ReadTag(ctx *gin.Context) {
 	t.tagService.ReadAll(ctx)
 }
 
+// readOneTag 查看单个标签
+func (t tagsco) ReadOneTag(ctx *gin.Context) {
+	t.tagService.ReadOne(ctx)
+}
+
 // UpdateTag 更新标签
 func (t tagsco) UpdateTag(ctx *gin.Context) {
 	t.tagService.UpdateOne(ctx)

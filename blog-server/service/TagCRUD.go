@@ -48,6 +48,22 @@ func (a *TagCRUD) ReadAll(ctx *gin.Context) {
 	httpresp.ResOK(ctx, tag)
 }
 
+// ReadOne 查找一个标签
+func (a *TagCRUD) ReadOne(ctx *gin.Context) {
+	tagid, ok := ctx.Params.Get("id")
+	if !ok {
+		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
+		return
+	}
+	var tag models.Tags
+	dao.DB.Where("id=?", tagid).Preload("HasArt").First(&tag)
+	if tag.Name == "" {
+		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
+		return
+	}
+	httpresp.ResOK(ctx, tag)
+}
+
 // UpdateOne 更新一个标签
 func (a *TagCRUD) UpdateOne(ctx *gin.Context) {
 	tagid, ok := ctx.Params.Get("id")

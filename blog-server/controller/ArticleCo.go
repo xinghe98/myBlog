@@ -30,6 +30,11 @@ func (a ArticleCo) AllArticle(ctx *gin.Context) {
 	a.Article.ReadAll(ctx)
 }
 
+// 查看单个文章的控制器
+func (a ArticleCo) OneArticle(ctx *gin.Context) {
+	a.Article.ReadOne(ctx)
+}
+
 // 更新单个文章的控制器
 func (a ArticleCo) UpdateArticle(ctx *gin.Context) {
 	a.Article.UpdateOne(ctx)
