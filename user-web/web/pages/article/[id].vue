@@ -9,7 +9,7 @@
 						</div>
 					</template>
 					<client-only>
-						<MdCatalog :editorId="md_moudle" />
+						<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
 					</client-only>
 				</ElCard>
 			</div>
@@ -35,6 +35,12 @@ const route = useRoute();
 const id = route.params.id;
 const preview_theme = "cyanosis";
 const code_theme = "atom";
+const scrollElement = ref<HTMLElement>();
+
+onMounted(() => {
+	// 必须挂载dom之后才能操作dom
+	scrollElement.value = document.documentElement as HTMLElement;
+});
 
 interface article {
 	ID: number;
@@ -49,7 +55,6 @@ interface article {
 const md_moudle = "preview-only";
 
 const { data } = await request<article>("/article/" + id);
-console.log(data.value!.data);
 const article = (data.value!.data as articlesData<article>).articles;
 </script>
 
