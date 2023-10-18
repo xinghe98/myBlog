@@ -78,11 +78,14 @@ main .container {
 }
 .container .aside {
 	width: 300px;
-	position: relative;
 }
 .el-card ::v-deep(.el-card__body) {
-	max-height: calc(100vh - 400px);
+	max-height: calc(100vh - 300px);
 	overflow: auto;
 	padding: 20px;
+}
+.el-card {
+	position: fixed;
+	width: 300px;
 }
 </style>
