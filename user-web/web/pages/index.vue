@@ -12,7 +12,16 @@
 					</a>
 				</el-carousel-item>
 			</el-carousel>
-			<SomeArticle />
+			<main class="main">
+				<div class="container">
+					<div class="left">
+						<SomeArticle />
+					</div>
+					<div class="right">
+						<RightMain />
+					</div>
+				</div>
+			</main>
 		</el-main>
 	</el-container>
 </template>
@@ -53,5 +62,22 @@ headline.value = (data.value!.data as articlesData<Article[]>).articles;
 	font-size: 2rem;
 	font-weight: bold;
 	font-family: "Consolas";
+}
+.left {
+	width: calc(100% - 400px);
+}
+.right {
+	width: 380px;
+}
+.main {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 15px;
+}
+.container {
+	display: flex;
+	justify-content: space-between;
+	width: 1300px;
 }
 </style>

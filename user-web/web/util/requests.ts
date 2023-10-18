@@ -1,5 +1,5 @@
 import { useFetch } from "nuxt/app";
-interface Res<T> {
+export interface Res<T> {
 	code: number;
 	data: articlesData<T> | T;
 	msg: string;
@@ -13,5 +13,5 @@ export interface articlesData<T> {
 }
 
 export const request = async <K>(path: string) => {
-	return await useFetch<Res<K>>(() => `http://127.0.0.1:3001${path}`);
+	return await useFetch<Res<K>>(`http://127.0.0.1:3001${path}`);
 };

@@ -17,8 +17,10 @@
 	},
 	"dependencies": {
 		"@element-plus/nuxt": "^1.0.6",
+		"@pinia/nuxt": "^0.5.1",
 		"@vitejs/plugin-vue": "^4.4.0",
 		"element-plus": "^2.3.14",
-		"md-editor-v3": "^4.8.1"
+		"md-editor-v3": "^4.8.1",
+		"pinia": "^2.1.7"
 	}
 }
