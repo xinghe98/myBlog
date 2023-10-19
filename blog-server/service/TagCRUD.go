@@ -10,6 +10,7 @@ import (
 	"myBlogServer/v1/util"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type TagCRUD struct{}
@@ -50,18 +51,35 @@ func (a *TagCRUD) ReadAll(ctx *gin.Context) {
 
 // ReadOne 查找一个标签
 func (a *TagCRUD) ReadOne(ctx *gin.Context) {
-	tagid, ok := ctx.Params.Get("id")
+	pagination := util.GeneratePaginationFromRequest(ctx)
+	var total int64
+
+	tagid, ok := ctx.Params.Get("name")
 	if !ok {
 		httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "请求无效")
 		return
 	}
 	var tag models.Tags
-	dao.DB.Where("id=?", tagid).Preload("HasArt").First(&tag)
-	if tag.Name == "" {
-		httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
-		return
+	if pagination.Limit == 0 && pagination.Page == 0 && len(pagination.Sort) == 0 && pagination.Status == 0 {
+		dao.DB.Preload("HasArt", func(DB *gorm.DB) *gorm.DB {
+			return DB.Where("status=?", 1)
+		}).Where("name=?", tagid).First(&tag)
+		if tag.Name == "" {
+			httpresp.ResOthers(ctx, http.StatusMethodNotAllowed, nil, "没有这标签")
+			return
+		}
+		httpresp.ResOK(ctx, tag)
+	} else {
+		offset := (pagination.Page - 1) * pagination.Limit
+		err := dao.DB.Model(&tag).Preload("HasArt", func(DB *gorm.DB) *gorm.DB {
+			return DB.Where("status=?", 1).Limit(pagination.Limit).Offset(offset)
+		}).Where("name = ?", tagid).Find(&tag).Error
+		if err != nil {
+			httpresp.ResOthers(ctx, http.StatusBadGateway, nil, "服务器错误")
+			return
+		}
+		httpresp.ResOK(ctx, gin.H{"articles": tag.HasArt, "total": total, "current_page_size": len(tag.HasArt), "page": pagination.Page, "limit": pagination.Limit, "tagname": tagid})
 	}
-	httpresp.ResOK(ctx, tag)
 }
 
 // UpdateOne 更新一个标签
