@@ -19,6 +19,7 @@
 					:code-theme="code_theme"
 					:editor-id="md_moudle"
 					:model-value="article.content"
+					style="background-color: rgba(255, 255, 255, 0.8)"
 				/>
 			</div>
 		</div>
@@ -63,7 +64,6 @@ main {
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	background-color: #f0eeee;
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
@@ -87,5 +87,6 @@ main .container {
 .el-card {
 	position: fixed;
 	width: 300px;
+	background-color: rgba(255, 255, 255, 0.5);
 }
 </style>

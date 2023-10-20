@@ -10,7 +10,7 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	background-color: white;
+	background-color: rgba(255, 255, 255, 0.4);
 	padding: 20px 0;
 	font-size: 12px;
 	margin-top: 20px;

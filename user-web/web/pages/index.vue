@@ -78,6 +78,6 @@ headline.value = (data.value!.data as articlesData<Article[]>).articles;
 .container {
 	display: flex;
 	justify-content: space-between;
-	width: 1300px;
+	max-width: 1300px;
 }
 </style>

@@ -10,9 +10,9 @@
 				</div>
 			</template>
 			<div v-for="tag in tags" :key="tag.ID" class="text item">
-				<el-button @click="handleTags(tag.name)" size="small" type="info" plain>{{
-					tag.name
-				}}</el-button>
+				<a :href="`/${tag.name}`">
+					<el-button size="small" type="info" plain>{{ tag.name }}</el-button>
+				</a>
 			</div>
 		</el-card>
 	</div>
@@ -20,7 +20,6 @@
 
 <script lang="ts" setup>
 import { request } from "~/util/requests";
-import { useTagsStore } from "~/stores/tagsStore";
 
 type tagdata = {
 	ID: number;
@@ -28,14 +27,8 @@ type tagdata = {
 };
 
 const tags = ref<tagdata[]>([]);
-const tagsStore = useTagsStore();
-
 const { data } = await request<tagdata[]>("/tags/findall");
 tags.value = data.value!.data as tagdata[];
-
-const handleTags = (name: string) => {
-	tagsStore.tags = name;
-};
 </script>
 
 <style scoped>

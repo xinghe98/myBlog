@@ -1,52 +1,42 @@
 <template>
-	<el-card style="display: flex" shadow="hover" v-for="item in postData" :key="item.ID">
-		<el-image
-			fit="cover"
-			style="width: 179px; height: 110px; display: flex; border-radius: 5px"
-			:src="`${item.image}`"
-		></el-image>
-		<div class="cardofinfo">
-			<div class="title">
-				<a :href="`/article/${item.ID}`" target="_blank">
-					{{ item.title }}
-				</a>
+	<div class="container">
+		<el-card shadow="hover" v-for="item in postData" :key="item.ID">
+			<el-image
+				fit="cover"
+				style="width: 179px; height: 110px; display: flex; border-radius: 5px"
+				:src="`${item.image}`"
+			></el-image>
+			<div class="cardofinfo">
+				<div class="title">
+					<a :href="`/article/${item.ID}`" target="_blank">
+						{{ item.title }}
+					</a>
+				</div>
+				<div class="content">
+					{{ item.content.slice(0, 50).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
+				</div>
+				<div class="data">
+					<span class="date">
+						<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
+							<EditPen />
+						</el-icon>
+						{{ item.UpdatedAt.slice(0, 10) }}
+					</span>
+				</div>
 			</div>
-			<div class="content">
-				{{ item.content.slice(0, 100).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
-			</div>
-			<div class="data">
-				<span class="tags">
-					<el-tag
-						style="margin: 3px; display: flex"
-						v-for="tag in item.Tags"
-						:key="tag.ID"
-						effect="light"
-						round
-					>
-						{{ tag.name }}
-					</el-tag>
-				</span>
-				<span class="date">
-					<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
-						<EditPen />
-					</el-icon>
-					{{ item.UpdatedAt.slice(0, 10) }}
-				</span>
-			</div>
+		</el-card>
+		<div class="page">
+			<el-pagination
+				v-if="total > 10"
+				background
+				layout="prev, pager, next"
+				:total="total"
+				:page-size="10"
+				@current-change="handleCurrentChange"
+			/>
 		</div>
-	</el-card>
-	<div class="page">
-		<el-pagination
-			v-if="total > 10"
-			background
-			layout="prev, pager, next"
-			:total="total"
-			:page-size="10"
-			@current-change="handleCurrentChange"
-		/>
 	</div>
 </template>
-
 <script lang="ts" setup>
 import { EditPen } from "@element-plus/icons-vue";
 import { request, articlesData } from "~/util/requests";
@@ -65,9 +55,11 @@ type artdata = {
 	headimg: string;
 	UpdatedAt: string;
 };
-let dataurl = "/article/findall?status=1&page=1&limit=10";
 const total = ref(0);
 const postData = ref<artdata[]>([]);
+const route = useRoute();
+const name = route.params.tag;
+let dataurl = `/tags/${name}?page=1&limit=10`;
 
 const handleCurrentChange = async (page: number) => {
 	const { data } = await request<artdata[]>(dataurl.replace("page=1", `page=${page}`));
@@ -81,6 +73,10 @@ total.value = (data.value!.data as articlesData<artdata[]>).total;
 </script>
 
 <style scoped>
+.container {
+	max-width: 50%;
+	margin: 0 auto;
+}
 a {
 	color: #000;
 	text-decoration: none;
@@ -88,6 +84,7 @@ a {
 .el-card {
 	margin: 10px;
 	display: flex;
+	background-color: rgba(255, 255, 255, 0.6);
 	width: auto;
 }
 * {
@@ -108,7 +105,6 @@ div {
 
 .el-card ::v-deep(.el-card__body) {
 	display: flex;
-	width: 100%;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo {
@@ -116,8 +112,7 @@ div {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	max-width: 520px;
-	min-width: 510px;
+	width: 520px;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo .title {
@@ -131,6 +126,7 @@ div {
 }
 .el-card ::v-deep(.el-card__body) .cardofinfo .content {
 	margin-top: 10px;
+	flex-wrap: wrap;
 	color: rgb(115, 130, 151);
 }
 .data {
@@ -138,11 +134,6 @@ div {
 	align-items: center;
 	margin-top: 5px;
 	justify-content: space-between;
-}
-
-.tags {
-	display: flex;
-	flex-wrap: wrap;
 }
 
 .date {
