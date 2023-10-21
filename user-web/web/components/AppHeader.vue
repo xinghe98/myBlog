@@ -11,13 +11,16 @@
 		>
 			<img src="https://vuejs.org/images/logo.png" alt="Vue logo" />
 			<div class="flex-grow" />
-			<el-menu-item index="/">主页</el-menu-item>
+			<el-menu-item index="/"
+				><el-icon><HomeFilled /></el-icon>主页</el-menu-item
+			>
 			<el-menu-item index="/post">文章</el-menu-item>
 		</el-menu>
 	</div>
 </template>
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
+import { HomeFilled } from "@element-plus/icons-vue";
 const route = useRoute();
 const handleSelect = (key: string, keyPath: string[]) => {
 	console.log(key, keyPath);
@@ -48,5 +51,10 @@ ul {
 }
 .el-menu--horizontal.el-menu {
 	border-bottom: 0;
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+	background-color: transparent;
 }
 </style>

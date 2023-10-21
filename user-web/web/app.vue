@@ -73,16 +73,7 @@ html body {
 	padding: 0;
 }
 .layout {
-	background: linear-gradient(
-		90deg,
-		#ffffff 1%,
-		#ead2ea 10.2%,
-		#e4d5ee 19.6%,
-		#d1def3 36.8%,
-		#b5dee5 62.2%,
-		#cfebf3 88.9%,
-		#ffffff 99%
-	) !important;
+	background: radial-gradient(circle, rgba(217, 255, 254, 1) 17%, rgba(255, 235, 242, 1) 100%);
 }
 body {
 	background-color: #f0eeee;

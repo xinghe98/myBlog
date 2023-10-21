@@ -89,6 +89,7 @@ a {
 	margin: 10px;
 	display: flex;
 	width: auto;
+	background-color: rgba(255, 255, 255, 0.6);
 }
 * {
 	box-sizing: border-box;

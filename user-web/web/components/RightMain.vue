@@ -60,6 +60,11 @@ div {
 	margin-bottom: 18px;
 	margin: 10px;
 }
+.el-card {
+	background-color: rgba(255, 255, 255, 0.3);
+	border: none;
+	border-radius: 5px 5px 8px 8px;
+}
 .el-card ::v-deep(.el-card__body) {
 	display: flex;
 	flex-wrap: wrap;

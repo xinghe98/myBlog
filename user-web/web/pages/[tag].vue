@@ -174,13 +174,13 @@ div {
 .page-header {
 	width: 100%;
 	display: flex;
-	background-image: url("https://mrzym.gitee.io/blogimg/cover/cute.jpg");
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
+	background-image: url("https://images6.alphacoders.com/400/400246.jpg");
 	background-color: #8a7e90;
-	background-position: center center;
+	background-position: 0% 30%;
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 26rem;
