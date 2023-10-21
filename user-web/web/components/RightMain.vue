@@ -11,7 +11,13 @@
 			</template>
 			<div v-for="tag in tags" :key="tag.ID" class="text item">
 				<a :href="`/${tag.name}`">
-					<el-button size="small" type="info" plain>{{ tag.name }}</el-button>
+					<el-button
+						size="small"
+						:color="`${tag.name === name ? '#95d475' : ''}`"
+						type="info"
+						plain
+						>{{ tag.name }}</el-button
+					>
 				</a>
 			</div>
 		</el-card>
@@ -27,6 +33,8 @@ type tagdata = {
 };
 
 const tags = ref<tagdata[]>([]);
+const route = useRoute();
+const name = route.params.tag;
 const { data } = await request<tagdata[]>("/tags/findall");
 tags.value = data.value!.data as tagdata[];
 </script>

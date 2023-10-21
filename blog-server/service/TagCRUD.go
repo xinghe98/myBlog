@@ -71,6 +71,12 @@ func (a *TagCRUD) ReadOne(ctx *gin.Context) {
 		httpresp.ResOK(ctx, tag)
 	} else {
 		offset := (pagination.Page - 1) * pagination.Limit
+		// 获取HasArt 内的总数total
+		dao.DB.Model(&models.Tags{}).Where("name=?", tagid).Preload("HasArt", func(DB *gorm.DB) *gorm.DB {
+			return DB.Debug().Where("status=?", 1)
+		}).Find(&tag)
+		total = int64(len(tag.HasArt))
+		// 获取数据
 		err := dao.DB.Model(&tag).Preload("HasArt", func(DB *gorm.DB) *gorm.DB {
 			return DB.Where("status=?", 1).Limit(pagination.Limit).Offset(offset)
 		}).Where("name = ?", tagid).Find(&tag).Error

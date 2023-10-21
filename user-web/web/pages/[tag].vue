@@ -1,41 +1,53 @@
 <template>
-	<div class="container">
-		<el-card shadow="hover" v-for="item in postData" :key="item.ID">
-			<el-image
-				fit="cover"
-				style="width: 179px; height: 110px; display: flex; border-radius: 5px"
-				:src="`${item.image}`"
-			></el-image>
-			<div class="cardofinfo">
-				<div class="title">
-					<a :href="`/article/${item.ID}`" target="_blank">
-						{{ item.title }}
-					</a>
-				</div>
-				<div class="content">
-					{{ item.content.slice(0, 50).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
-				</div>
-				<div class="data">
-					<span class="date">
-						<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
-							<EditPen />
-						</el-icon>
-						{{ item.UpdatedAt.slice(0, 10) }}
-					</span>
-				</div>
-			</div>
-		</el-card>
-		<div class="page">
-			<el-pagination
-				v-if="total > 10"
-				background
-				layout="prev, pager, next"
-				:total="total"
-				:page-size="10"
-				@current-change="handleCurrentChange"
-			/>
+	<div class="page-header">
+		<div class="route-font">
+			<span>和{{ name }}相关的文章</span>
 		</div>
 	</div>
+	<main class="main">
+		<div class="container">
+			<div class="left">
+				<el-card shadow="hover" v-for="item in postData" :key="item.ID">
+					<el-image
+						fit="cover"
+						style="width: 179px; height: 110px; display: flex; border-radius: 5px"
+						:src="`${item.image}`"
+					></el-image>
+					<div class="cardofinfo">
+						<div class="title">
+							<a :href="`/article/${item.ID}`" target="_blank">
+								{{ item.title }}
+							</a>
+						</div>
+						<div class="content">
+							{{ item.content.slice(0, 50).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
+						</div>
+						<div class="data">
+							<span class="date">
+								<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
+									<EditPen />
+								</el-icon>
+								{{ item.UpdatedAt.slice(0, 10) }}
+							</span>
+						</div>
+					</div>
+				</el-card>
+				<div class="page">
+					<el-pagination
+						v-if="total > 10"
+						background
+						layout="prev, pager, next"
+						:total="total"
+						:page-size="10"
+						@current-change="handleCurrentChange"
+					/>
+				</div>
+			</div>
+			<div class="right">
+				<RightMain />
+			</div>
+		</div>
+	</main>
 </template>
 <script lang="ts" setup>
 import { EditPen } from "@element-plus/icons-vue";
@@ -105,6 +117,7 @@ div {
 
 .el-card ::v-deep(.el-card__body) {
 	display: flex;
+	width: 100%;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo {
@@ -112,7 +125,7 @@ div {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 520px;
+	width: 100%;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo .title {
@@ -140,5 +153,50 @@ div {
 	color: #909399;
 	font-size: 14px;
 	margin-right: 15px;
+}
+.left {
+	width: calc(100% - 400px);
+}
+.right {
+	width: 380px;
+}
+.main {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 15px;
+}
+.container {
+	display: flex;
+	justify-content: space-between;
+	max-width: 1300px;
+}
+.page-header {
+	width: 100%;
+	display: flex;
+	background-image: url("https://mrzym.gitee.io/blogimg/cover/cute.jpg");
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	background-color: #8a7e90;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 26rem;
+}
+
+.page-header .route-font {
+	font-size: 3.2rem;
+	font-weight: 500;
+	line-height: 2.4;
+	text-align: center;
+	color: #fff;
+	z-index: 999;
+	cursor: pointer;
+	transition: all 0.3s;
+	text-shadow: 0 1px 0 hsl(174, 5%, 80%), 0 2px 0 hsl(174, 5%, 75%), 0 3px 0 hsl(174, 5%, 70%),
+		0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2),
+		0 5px 10px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
 }
 </style>

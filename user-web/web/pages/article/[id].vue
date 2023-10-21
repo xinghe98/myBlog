@@ -19,7 +19,13 @@
 					:code-theme="code_theme"
 					:editor-id="md_moudle"
 					:model-value="article.content"
-					style="background-color: rgba(255, 255, 255, 0.8)"
+					style="
+						border-radius: 5px 5px 8px 8px;
+						box-shadow: var(--card-box-shadow) !important;
+						background: rgba(255, 255, 255, 0.3);
+						transition: all 0.3s;
+						padding: 20px;
+					"
 				/>
 			</div>
 		</div>
@@ -83,10 +89,18 @@ main .container {
 	max-height: calc(100vh - 300px);
 	overflow: auto;
 	padding: 20px;
+	font-size: 14px;
 }
 .el-card {
 	position: fixed;
 	width: 300px;
 	background-color: rgba(255, 255, 255, 0.5);
+	border: none;
+	border-radius: 5px 5px 8px 8px;
+	box-shadow: var(--card-box-shadow) !important;
+	background: rgba(255, 255, 255, 0.3);
+	transition: all 0.3s;
+}
+MdPreview {
 }
 </style>

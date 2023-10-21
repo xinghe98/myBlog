@@ -116,8 +116,7 @@ div {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	max-width: 520px;
-	min-width: 510px;
+	width: 100%;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo .title {

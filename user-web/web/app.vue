@@ -2,7 +2,7 @@
 	<el-config-provider :locale="locale">
 		<div class="layout" style="display: block">
 			<el-container>
-				<el-header style="height: 55px; marin: 10px; padding: 0">
+				<el-header :class="topsrcoll ? 'top' : ''" style="height: 55px; marin: 10px; padding: 0">
 					<el-affix>
 						<AppHeader />
 					</el-affix>
@@ -28,8 +28,38 @@ export default defineComponent({
 		ElConfigProvider,
 	},
 	setup() {
+		let scrollTop = ref("");
+		let topsrcoll = ref(false); //上移样式成立
+		let topage = () => {};
+		onMounted(() => {
+			window.addEventListener("scroll", handleScroll);
+		});
+		//监听页面滚动
+		let handleScroll = () => {
+			scrollTop.value =
+				window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+		};
+		// 监听top值的变化
+		watch(scrollTop, (newValue, oldValue) => {
+			// 等新值大于100的时候再做变化（优化一下）
+			console.log(newValue, oldValue);
+			// 等新值大于100的时候再做变化（优化一下）
+			if (newValue > 100) {
+				if (newValue > oldValue) {
+					console.log("向下滚动");
+					topsrcoll.value = true;
+				} else {
+					console.log("向上滚动");
+					topsrcoll.value = false;
+				}
+			}
+		});
+
 		return {
 			locale: zhCn,
+			scrollTop,
+			topage,
+			topsrcoll,
 		};
 	},
 });
@@ -59,5 +89,36 @@ body {
 }
 .el-container {
 	min-height: 100vh;
+}
+.top {
+	transform: translateY(-90px);
+}
+Header {
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	transition: all 0.5s;
+}
+
+html ::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+html ::-webkit-scrollbar-thumb {
+	background-color: #efbcda;
+	background-image: -webkit-linear-gradient(
+		45deg,
+		rgb(171, 245, 218) 25%,
+		transparent 25%,
+		transparent 50%,
+		rgb(150, 212, 236) 50%,
+		rgb(239, 147, 228) 75%,
+		transparent 75%,
+		transparent
+	);
+	border-radius: 2em;
+}
+html ::-webkit-scrollbar-track {
+	display: none;
 }
 </style>
