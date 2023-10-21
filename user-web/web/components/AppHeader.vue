@@ -14,7 +14,7 @@
 			<el-menu-item index="/"
 				><el-icon><HomeFilled /></el-icon>主页</el-menu-item
 			>
-			<el-menu-item index="/post">文章</el-menu-item>
+			<el-menu-item index="/timeline">归档</el-menu-item>
 		</el-menu>
 	</div>
 </template>

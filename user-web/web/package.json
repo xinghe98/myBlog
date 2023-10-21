@@ -18,7 +18,10 @@
 	"dependencies": {
 		"@element-plus/nuxt": "^1.0.6",
 		"@vitejs/plugin-vue": "^4.4.0",
+		"autoprefixer": "^10.4.16",
 		"element-plus": "^2.3.14",
-		"md-editor-v3": "^4.8.1"
+		"md-editor-v3": "^4.8.1",
+		"postcss": "^8.4.31",
+		"postcss-pxtorem": "^6.0.0"
 	}
 }
