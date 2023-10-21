@@ -36,8 +36,7 @@ export default defineComponent({
 		});
 		//监听页面滚动
 		let handleScroll = () => {
-			scrollTop.value =
-				window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			scrollTop.value = document.documentElement.scrollTop || document.body.scrollTop;
 		};
 		// 监听top值的变化
 		watch(scrollTop, (newValue, oldValue) => {
@@ -111,5 +110,10 @@ html ::-webkit-scrollbar-thumb {
 }
 html ::-webkit-scrollbar-track {
 	display: none;
+}
+.el-card {
+	background-color: rgba(255, 255, 255, 0.3);
+	border: none;
+	border-radius: 5px 5px 8px 8px;
 }
 </style>

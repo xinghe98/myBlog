@@ -1,5 +1,5 @@
 <template>
-	<el-card style="display: flex" shadow="hover" v-for="item in postData" :key="item.ID">
+	<el-card shadow="hover" v-for="item in postData" :key="item.ID">
 		<el-image
 			fit="cover"
 			style="width: 179px; height: 110px; display: flex; border-radius: 5px"

@@ -9,16 +9,18 @@
 					-->
 				</div>
 			</template>
-			<div v-for="tag in tags" :key="tag.ID" class="text item">
-				<a :href="`/${tag.name}`">
-					<el-button
-						size="small"
-						:color="`${tag.name === name ? '#95d475' : ''}`"
-						type="info"
-						plain
-						>{{ tag.name }}</el-button
-					>
-				</a>
+			<div class="tags">
+				<div v-for="tag in tags" :key="tag.ID" class="text item">
+					<a :href="`/${tag.name}`">
+						<el-button
+							size="small"
+							:color="`${tag.name === name ? '#95d475' : ''}`"
+							type="info"
+							plain
+							>{{ tag.name }}</el-button
+						>
+					</a>
+				</div>
 			</div>
 		</el-card>
 	</div>
@@ -38,13 +40,9 @@ const name = route.params.tag;
 const { data } = await request<tagdata[]>("/tags/findall");
 tags.value = data.value!.data as tagdata[];
 </script>
-
 <style scoped>
 .block {
 	margin: 10px;
-}
-div {
-	display: block;
 }
 .card-header {
 	display: flex;
@@ -60,12 +58,12 @@ div {
 	margin-bottom: 18px;
 	margin: 10px;
 }
-.el-card {
+.box-card {
 	background-color: rgba(255, 255, 255, 0.3);
 	border: none;
 	border-radius: 5px 5px 8px 8px;
 }
-.el-card ::v-deep(.el-card__body) {
+.el-card ::v-deep(.el-card__body) .tags {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
