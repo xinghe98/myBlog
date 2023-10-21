@@ -2,9 +2,4 @@
 export default defineNuxtConfig({
 	modules: ["@element-plus/nuxt"],
 	devtools: { enabled: false },
-	vite: {
-		vue: {
-			customElement: true,
-		},
-	},
 });
