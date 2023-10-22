@@ -14,13 +14,15 @@
 			<el-menu-item index="/"
 				><el-icon><HomeFilled /></el-icon>主页</el-menu-item
 			>
-			<el-menu-item index="/timeline">归档</el-menu-item>
+			<el-menu-item index="/timeline"
+				><el-icon><CameraFilled /></el-icon>归档</el-menu-item
+			>
 		</el-menu>
 	</div>
 </template>
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
-import { HomeFilled } from "@element-plus/icons-vue";
+import { HomeFilled, CameraFilled } from "@element-plus/icons-vue";
 const route = useRoute();
 const handleSelect = (key: string, keyPath: string[]) => {
 	console.log(key, keyPath);

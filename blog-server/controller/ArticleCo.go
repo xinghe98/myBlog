@@ -39,3 +39,8 @@ func (a ArticleCo) OneArticle(ctx *gin.Context) {
 func (a ArticleCo) UpdateArticle(ctx *gin.Context) {
 	a.Article.UpdateOne(ctx)
 }
+
+// 归档文章查看的控制器
+func (a ArticleCo) ArchiveArticle(ctx *gin.Context) {
+	a.Article.ReadWithAnother(ctx)
+}

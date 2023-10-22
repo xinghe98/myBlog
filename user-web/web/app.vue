@@ -41,14 +41,10 @@ export default defineComponent({
 		// 监听top值的变化
 		watch(scrollTop, (newValue, oldValue) => {
 			// 等新值大于100的时候再做变化（优化一下）
-			console.log(newValue, oldValue);
-			// 等新值大于100的时候再做变化（优化一下）
 			if (newValue > 100) {
 				if (newValue > oldValue) {
-					console.log("向下滚动");
 					topsrcoll.value = true;
 				} else {
-					console.log("向上滚动");
 					topsrcoll.value = false;
 				}
 			}

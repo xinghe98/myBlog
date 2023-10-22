@@ -15,6 +15,7 @@ func CommonRouter(r *gin.Engine) *gin.Engine {
 		// 查询所有文章
 		article.GET("findall", controller.ArticleCRUD.AllArticle)
 		article.GET(":aid", controller.ArticleCRUD.OneArticle)
+		article.GET("archive", controller.ArticleCRUD.ArchiveArticle)
 	}
 	tags := r.Group("/tags/")
 	{

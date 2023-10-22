@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"myBlogServer/v1/dao"
 	"myBlogServer/v1/httpresp"
@@ -194,7 +195,15 @@ func (a *Article) DeleteOne(ctx *gin.Context) {
 // 下面是一些其他复杂的查询方法
 
 // ReadWithAnother 通过其他条件查找文章
+// 将文章按照年份归档
 // FIX: 还没写完
 func (a *Article) ReadWithAnother(ctx *gin.Context) {
-	httpresp.ResOK(ctx, gin.H{"dfaf": 200})
+	type aritcle struct {
+		ID        uint
+		Title     string
+		CreatedAt time.Time
+	}
+	var articleWithDate []*aritcle
+	dao.DB.Model(&models.Article{}).Where("status = ?", 1).Order("created_at desc").Find(&articleWithDate)
+	httpresp.ResOK(ctx, gin.H{"articles": articleWithDate})
 }

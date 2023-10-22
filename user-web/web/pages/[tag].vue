@@ -1,9 +1,7 @@
 <template>
-	<div class="page-header">
-		<div class="route-font">
-			<span>和{{ name }}相关的文章</span>
-		</div>
-	</div>
+	<PageHeaders>
+		<span>和{{ name }}相关的文章</span>
+	</PageHeaders>
 	<main class="main">
 		<div class="container">
 			<div class="left">
@@ -170,33 +168,5 @@ div {
 	display: flex;
 	justify-content: space-between;
 	max-width: 1300px;
-}
-.page-header {
-	width: 100%;
-	display: flex;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	background-image: url("https://images6.alphacoders.com/400/400246.jpg");
-	background-color: #8a7e90;
-	background-position: 0% 30%;
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 26rem;
-}
-
-.page-header .route-font {
-	font-size: 3.2rem;
-	font-weight: 500;
-	line-height: 2.4;
-	text-align: center;
-	color: #fff;
-	z-index: 999;
-	cursor: pointer;
-	transition: all 0.3s;
-	text-shadow: 0 1px 0 hsl(174, 5%, 80%), 0 2px 0 hsl(174, 5%, 75%), 0 3px 0 hsl(174, 5%, 70%),
-		0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2),
-		0 5px 10px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
 }
 </style>
