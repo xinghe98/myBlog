@@ -1,29 +1,23 @@
 <template>
-	<el-container>
-		<el-main>
-			<el-carousel height="700px" :interval="8000" arrow="hover">
-				<el-carousel-item v-for="data in headline" :key="data.ID">
-					<a :href="`/article/${data.ID}`" target="_blank">
-						<img
-							:src="`https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/${data.headimg}`"
-							alt=""
-						/>
-						<div class="vcenter">{{ data.title }}</div>
-					</a>
-				</el-carousel-item>
-			</el-carousel>
-			<main class="main">
-				<div class="container">
-					<div class="left">
-						<SomeArticle />
-					</div>
-					<div class="right">
-						<RightMain />
-					</div>
-				</div>
-			</main>
-		</el-main>
-	</el-container>
+	<el-carousel height="50vh" :interval="8000" arrow="hover">
+		<el-carousel-item v-for="data in headline" :key="data.ID">
+			<a :href="`/article/${data.ID}`" target="_blank">
+				<img
+					:src="`https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/${data.headimg}`"
+					alt=""
+				/>
+				<div class="vcenter">{{ data.title }}</div>
+			</a>
+		</el-carousel-item>
+	</el-carousel>
+	<el-row :gutter="10" justify="center" style="max-width: 100cw">
+		<el-col :xs="24" :sm="18" :md="12" :lg="9">
+			<SomeArticle />
+		</el-col>
+		<el-col :xs="0" :sm="18" :md="3" :lg="3">
+			<RightMain />
+		</el-col>
+	</el-row>
 </template>
 
 <script setup lang="ts">
@@ -57,27 +51,10 @@ headline.value = (data.value!.data as articlesData<Article[]>).articles;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	transform: translate(-10%, -10%);
+	transform: translate(-50%, -50%);
 	color: white;
 	font-size: 2rem;
 	font-weight: bold;
 	font-family: "Consolas";
-}
-.left {
-	width: calc(100% - 400px);
-}
-.right {
-	width: 380px;
-}
-.main {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	margin-top: 15px;
-}
-.container {
-	display: flex;
-	justify-content: space-between;
-	max-width: 1300px;
 }
 </style>

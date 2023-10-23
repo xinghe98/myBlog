@@ -7,7 +7,7 @@
 						<AppHeader />
 					</el-affix>
 				</el-header>
-				<el-main style="padding: 0">
+				<el-main>
 					<NuxtPage />
 				</el-main>
 				<el-footer style="padding: 0; overflow: hidden">
@@ -61,11 +61,20 @@ export default defineComponent({
 </script>
 
 <style>
+html {
+	width: 100vw;
+}
 html body {
 	height: 100%;
-	width: 100%;
-	margin: 0;
+	width: 100% !important;
+	margin: 0 !important;
 	padding: 0;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-size: var(--global-font-size);
+	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial,
+		sans-serif;
 }
 .layout {
 	background: radial-gradient(circle, rgba(217, 255, 254, 1) 17%, rgba(255, 235, 242, 1) 100%);
@@ -75,6 +84,11 @@ body {
 }
 .el-container {
 	min-height: 100vh;
+}
+.el-main {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
 }
 .top {
 	transform: translateY(-90px);

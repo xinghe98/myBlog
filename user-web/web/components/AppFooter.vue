@@ -7,7 +7,7 @@
 
 <style>
 .footer {
-	width: 100%;
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	background-color: rgba(255, 255, 255, 0.4);
