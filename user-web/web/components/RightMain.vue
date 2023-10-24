@@ -56,7 +56,7 @@ tags.value = data.value!.data as tagdata[];
 
 .item {
 	margin-bottom: 18px;
-	margin: 10px;
+	margin: 5px;
 }
 .box-card {
 	background-color: rgba(255, 255, 255, 0.3);
@@ -64,8 +64,7 @@ tags.value = data.value!.data as tagdata[];
 	border-radius: 5px 5px 8px 8px;
 }
 .el-card ::v-deep(.el-card__body) .tags {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
 </style>
