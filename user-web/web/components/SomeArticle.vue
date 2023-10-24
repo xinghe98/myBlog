@@ -106,15 +106,22 @@ div {
 	margin: 0.8vh;
 	background-color: rgba(255, 255, 255, 0.6);
 }
+.el-card .el-image {
+	width: 180px;
+	height: 110px;
+	border-radius: 5px;
+}
 .el-card ::v-deep(.el-card__body) {
 	display: grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: 2fr 22fr;
+	grid-column-gap: 20px;
+	align-items: center;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo {
-	margin-left: 1.5vw;
 	display: grid;
 	align-items: center;
+	grid-row-gap: 10px;
 }
 
 .el-card ::v-deep(.el-card__body) .cardofinfo .title {
@@ -123,7 +130,12 @@ div {
 }
 .el-card ::v-deep(.el-card__body) .cardofinfo .data {
 	display: grid;
-	grid-template-columns: 2fr 20fr;
+	grid-template-columns: 2fr 22fr;
 	justify-items: end;
+}
+.data .tags {
+	display: grid;
+	grid-template-columns: 2fr 22fr;
+	grid-auto-flow: column;
 }
 </style>
