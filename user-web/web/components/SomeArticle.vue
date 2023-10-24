@@ -132,6 +132,7 @@ div {
 	display: grid;
 	grid-template-columns: 2fr 22fr;
 	justify-items: end;
+	font-size: 0.4rem;
 }
 .data .tags {
 	display: grid;
