@@ -2,171 +2,23 @@
 	<PageHeaders>
 		<span>和{{ name }}相关的文章</span>
 	</PageHeaders>
-	<main class="main">
-		<div class="container">
-			<div class="left">
-				<el-card shadow="hover" v-for="item in postData" :key="item.ID">
-					<el-image
-						fit="cover"
-						style="width: 179px; height: 110px; display: flex; border-radius: 5px"
-						:src="`${item.image}`"
-					></el-image>
-					<div class="cardofinfo">
-						<div class="title">
-							<a :href="`/article/${item.ID}`" target="_blank">
-								{{ item.title }}
-							</a>
-						</div>
-						<div class="content">
-							{{ item.content.slice(0, 50).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
-						</div>
-						<div class="data">
-							<span class="date">
-								<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
-									<EditPen />
-								</el-icon>
-								{{ item.UpdatedAt.slice(0, 10) }}
-							</span>
-						</div>
-					</div>
-				</el-card>
-				<div class="page">
-					<el-pagination
-						v-if="total > 10"
-						background
-						layout="prev, pager, next"
-						:total="total"
-						:page-size="10"
-						@current-change="handleCurrentChange"
-					/>
-				</div>
-			</div>
-			<div class="right">
-				<RightMain />
-			</div>
-		</div>
-	</main>
+	<el-row :gutter="10" justify="center" style="margin: 0; padding: 0">
+		<el-col :xs="24" :sm="18" :md="12" :lg="9">
+			<SomeArticle />
+		</el-col>
+		<el-col :xs="0" :sm="18" :md="24" :lg="5">
+			<RightMain />
+		</el-col>
+	</el-row>
 </template>
 <script lang="ts" setup>
-import { EditPen } from "@element-plus/icons-vue";
-import { request, articlesData } from "~/util/requests";
-
-type tagdata = {
-	ID: number;
-	name: string;
-};
-type artdata = {
-	ID: number;
-	title: string;
-	content: string;
-	Tags: tagdata[];
-	status: number;
-	image: string;
-	headimg: string;
-	UpdatedAt: string;
-};
-const total = ref(0);
-const postData = ref<artdata[]>([]);
 const route = useRoute();
 const name = route.params.tag;
-let dataurl = `/tags/${name}?page=1&limit=10`;
-
-const handleCurrentChange = async (page: number) => {
-	const { data } = await request<artdata[]>(dataurl.replace("page=1", `page=${page}`));
-	postData.value = (data.value!.data as articlesData<artdata[]>).articles;
-};
-
-const { data } = await request<artdata[]>(dataurl);
-const allstatusData: artdata[] = (data.value!.data as articlesData<artdata[]>).articles;
-postData.value = allstatusData;
-total.value = (data.value!.data as articlesData<artdata[]>).total;
 </script>
 
 <style scoped>
-.container {
-	max-width: 50%;
-	margin: 0 auto;
-}
 a {
 	color: #000;
 	text-decoration: none;
-}
-.el-card {
-	margin: 10px;
-	display: flex;
-	background-color: rgba(255, 255, 255, 0.6);
-	width: auto;
-}
-* {
-	box-sizing: border-box;
-}
-div {
-	display: block;
-}
-.page {
-	display: flex;
-	justify-content: center;
-	margin: 24px;
-}
-.el-pagination {
-	display: flex;
-	align-items: center;
-}
-
-.el-card ::v-deep(.el-card__body) {
-	display: flex;
-	width: 100%;
-}
-
-.el-card ::v-deep(.el-card__body) .cardofinfo {
-	padding-left: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 100%;
-}
-
-.el-card ::v-deep(.el-card__body) .cardofinfo .title {
-	font-size: 20px;
-	font-weight: 600;
-}
-.el-card ::v-deep(.el-card__body) .cardofinfo .title :hover {
-	font-size: 20px;
-	font-weight: 600;
-	color: #5cbfef;
-}
-.el-card ::v-deep(.el-card__body) .cardofinfo .content {
-	margin-top: 10px;
-	flex-wrap: wrap;
-	color: rgb(115, 130, 151);
-}
-.data {
-	display: flex;
-	align-items: center;
-	margin-top: 5px;
-	justify-content: space-between;
-}
-
-.date {
-	color: #909399;
-	font-size: 14px;
-	margin-right: 15px;
-}
-.left {
-	width: calc(100% - 400px);
-}
-.right {
-	width: 380px;
-}
-.main {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	margin-top: 15px;
-}
-.container {
-	display: flex;
-	justify-content: space-between;
-	max-width: 1300px;
 }
 </style>

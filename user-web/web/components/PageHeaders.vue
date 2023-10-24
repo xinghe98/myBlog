@@ -7,8 +7,8 @@
 </template>
 <style scoped>
 .page-header {
-	width: 100%;
-	display: flex;
+	width: 100vw;
+	height: 40vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -17,8 +17,6 @@
 	background-color: #8a7e90;
 	background-position: 0% 30%;
 	background-size: cover;
-	background-repeat: no-repeat;
-	height: 26rem;
 }
 
 .page-header .route-font {

@@ -14,7 +14,7 @@
 		<el-col :xs="24" :sm="18" :md="12" :lg="9">
 			<SomeArticle />
 		</el-col>
-		<el-col :xs="0" :sm="18" :md="3" :lg="3">
+		<el-col :xs="0" :sm="18" :md="24" :lg="5">
 			<RightMain />
 		</el-col>
 	</el-row>

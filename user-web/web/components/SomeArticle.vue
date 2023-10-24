@@ -65,7 +65,13 @@ type artdata = {
 	headimg: string;
 	UpdatedAt: string;
 };
-let dataurl = "/article/findall?status=1&page=1&limit=10";
+const route = useRoute();
+const name = route.params.tag;
+let dataurl = `/tags/${name}?page=1&limit=10`;
+if (name === undefined) {
+	dataurl = "/article/findall?status=1&page=1&limit=10";
+}
+
 const total = ref(0);
 const postData = ref<artdata[]>([]);
 
