@@ -61,12 +61,7 @@ export default defineComponent({
 </script>
 
 <style>
-html {
-	width: 100vw;
-}
 html body {
-	height: 100%;
-	width: 100% !important;
 	margin: 0 !important;
 	padding: 0;
 	-moz-osx-font-smoothing: grayscale;
@@ -88,7 +83,7 @@ body {
 .el-main {
 	padding: 0;
 	margin: 0;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .top {
 	transform: translateY(-90px);
