@@ -1,34 +1,38 @@
 <template>
 	<main>
-		<div class="container">
-			<div class="aside">
-				<ElCard shadow="never">
-					<template #header>
-						<div class="card-header">
-							<span style="font-size: 18px; font-weight: 600">文章目录</span>
-						</div>
-					</template>
-					<client-only>
-						<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
-					</client-only>
-				</ElCard>
-			</div>
-			<div class="article">
-				<MdPreview
-					:preview-theme="preview_theme"
-					:code-theme="code_theme"
-					:editor-id="md_moudle"
-					:model-value="article.content"
-					style="
-						border-radius: 5px 5px 8px 8px;
-						box-shadow: var(--card-box-shadow) !important;
-						background: rgba(255, 255, 255, 0.3);
-						transition: all 0.3s;
-						padding: 20px;
-					"
-				/>
-			</div>
-		</div>
+		<el-row :gutter="10" justify="center">
+			<el-col :xs="0">
+				<div class="aside">
+					<ElCard shadow="never">
+						<template #header>
+							<div class="card-header">
+								<span style="font-size: 18px; font-weight: 600">文章目录</span>
+							</div>
+						</template>
+						<client-only>
+							<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
+						</client-only>
+					</ElCard>
+				</div>
+			</el-col>
+			<el-col :xs="24">
+				<div class="article">
+					<MdPreview
+						:preview-theme="preview_theme"
+						:code-theme="code_theme"
+						:editor-id="md_moudle"
+						:model-value="article.content"
+						style="
+							border-radius: 5px 5px 8px 8px;
+							box-shadow: var(--card-box-shadow) !important;
+							background: rgba(255, 255, 255, 0.3);
+							transition: all 0.3s;
+							padding: 20px;
+						"
+					/>
+				</div>
+			</el-col>
+		</el-row>
 	</main>
 </template>
 
@@ -66,34 +70,15 @@ const article = (data.value!.data as articlesData<article>).articles;
 </script>
 
 <style scoped>
-main {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding-top: 70px;
-	padding-bottom: 20px;
-}
-
-main .container {
-	width: 1200px;
-	display: flex;
-	justify-content: space-between;
-}
-.container .article {
-	width: calc(100% - 320px);
-}
-.container .aside {
-	width: 300px;
-}
 .el-card ::v-deep(.el-card__body) {
-	max-height: calc(100vh - 300px);
+	max-height: 80vh;
 	overflow: auto;
 	padding: 20px;
-	font-size: 14px;
+	font-size: 0.8rem;
 }
 .el-card {
 	position: fixed;
-	width: 300px;
+	width: 13vw;
 	background-color: rgba(255, 255, 255, 0.5);
 	border: none;
 	border-radius: 5px 5px 8px 8px;

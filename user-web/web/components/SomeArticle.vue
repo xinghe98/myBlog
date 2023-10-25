@@ -1,42 +1,30 @@
 <template>
-	<el-row :gutter="10">
-		<el-card shadow="hover" v-for="item in postData" :key="item.ID">
-			<el-col :xs="0">
-				<el-image fit="cover" style="border-radius: 5px" :src="`${item.image}`"></el-image>
-			</el-col>
-			<el-col :xs="24">
-				<div class="cardofinfo">
-					<div class="title">
-						<a :href="`/article/${item.ID}`" target="_blank">
-							{{ item.title }}
-						</a>
-					</div>
-					<div class="content">
-						{{ item.content.slice(0, 80).replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
-					</div>
-					<div class="data">
-						<span class="tags">
-							<el-tag
-								style="margin: 3px"
-								v-for="tag in item.Tags"
-								:key="tag.ID"
-								effect="light"
-								round
-							>
-								{{ tag.name }}
-							</el-tag>
-						</span>
-						<span class="date">
-							<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
-								<EditPen />
-							</el-icon>
-							{{ item.UpdatedAt.slice(0, 10) }}
-						</span>
-					</div>
-				</div>
-			</el-col>
-		</el-card>
-	</el-row>
+	<el-card shadow="hover" v-for="item in postData" :key="item.ID">
+		<el-image fit="cover" style="border-radius: 5px" :src="`${item.image}`"></el-image>
+		<div class="cardofinfo">
+			<div class="title">
+				<a :href="`/article/${item.ID}`" target="_blank">
+					{{ item.title }}
+				</a>
+			</div>
+			<div class="content">
+				{{ item.content.replace(/[#,\-,\+,>,!,\[\],```]/g, " ") }}
+			</div>
+			<div class="data">
+				<span class="tags">
+					<el-tag style="margin: 3px" v-for="tag in item.Tags" :key="tag.ID" effect="light" round>
+						{{ tag.name }}
+					</el-tag>
+				</span>
+				<span class="date">
+					<el-icon :size="20" style="display: inline-block; vertical-align: -4px">
+						<EditPen />
+					</el-icon>
+					{{ item.UpdatedAt.slice(0, 10) }}
+				</span>
+			</div>
+		</div>
+	</el-card>
 	<div class="page">
 		<el-pagination
 			v-if="total > 10"
@@ -113,15 +101,14 @@ div {
 	background-color: rgba(255, 255, 255, 0.6);
 }
 .el-card .el-image {
-	width: 9.32vw;
-	height: 11.88vh;
+	max-height: 11.88vh;
 	border-radius: 5px;
 }
 .el-card ::v-deep(.el-card__body) {
 	display: grid;
-	grid-template-columns: 2fr 22fr;
+	grid-template-columns: 1fr 3fr;
 	grid-template-rows: auto;
-	grid-column-gap: 10px;
+	grid-column-gap: 18px;
 	align-items: center;
 }
 
@@ -137,16 +124,22 @@ div {
 }
 .el-card ::v-deep(.el-card__body) .cardofinfo .data {
 	display: grid;
-	grid-template-columns: 2fr 22fr;
+	grid-template-columns: 1fr 11fr;
 	justify-items: end;
 	font-size: 0.8rem;
 }
 .data .tags {
 	display: grid;
-	grid-template-columns: 2fr 22fr;
+	grid-template-columns: 1fr 11fr;
 	grid-auto-flow: column;
 }
 
 .content {
+	font-size: 1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
 }
 </style>
