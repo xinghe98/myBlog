@@ -55,7 +55,6 @@ func DeleteImg(key string) bool {
 	})
 	_, err := client.Object.Delete(context.Background(), key)
 	if err != nil {
-		panic(err)
 		return false
 	}
 	return true

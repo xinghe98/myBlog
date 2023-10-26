@@ -9,6 +9,7 @@
 				</el-header>
 				<el-main>
 					<NuxtPage />
+					<el-backtop style="color: green" :bottom="60"> </el-backtop>
 				</el-main>
 				<el-footer style="padding: 0; overflow: hidden">
 					<AppFooter />

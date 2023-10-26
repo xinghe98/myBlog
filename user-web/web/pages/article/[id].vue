@@ -2,21 +2,39 @@
 	<main>
 		<el-row :gutter="10" justify="center">
 			<el-col :sm="24" :md="4" :lg="4">
-				<div class="aside">
-					<ElCard shadow="never">
-						<template #header>
-							<div class="card-header">
-								<span style="font-size: 18px; font-weight: 600">文章目录</span>
-							</div>
-						</template>
-						<client-only>
-							<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
-						</client-only>
-					</ElCard>
-				</div>
+				<ElCard shadow="never" class="hidden-sm-and-down">
+					<template #header>
+						<div class="card-header">
+							<span style="font-size: 18px; font-weight: 600">文章目录</span>
+						</div>
+					</template>
+					<client-only>
+						<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
+					</client-only>
+				</ElCard>
 			</el-col>
 			<el-col :sm="24" :md="10" :lg="10">
 				<div class="article">
+					<el-col>
+						<!--手机端用抽屉显示文章目录-->
+						<el-affix>
+							<el-button
+								style="margin-top: 15%"
+								class="hidden-sm-and-up"
+								type="primary"
+								@click="drawer = true"
+								round
+							>
+								目录
+							</el-button>
+						</el-affix>
+						<client-only>
+							<el-drawer size="80%" v-model="drawer" title="目录" :with-header="false">
+								<client-only>
+									<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
+								</client-only> </el-drawer
+						></client-only>
+					</el-col>
 					<MdPreview
 						:preview-theme="preview_theme"
 						:code-theme="code_theme"
@@ -37,11 +55,13 @@
 </template>
 
 <script setup lang="ts">
+import "element-plus/theme-chalk/display.css";
 import { useRoute } from "vue-router";
 import { articlesData, request } from "~/util/requests";
 import { MdPreview, MdCatalog } from "md-editor-v3";
 import "md-editor-v3/lib/preview.css";
 
+const drawer = ref(false);
 const route = useRoute();
 const id = route.params.id;
 const preview_theme = "cyanosis";
