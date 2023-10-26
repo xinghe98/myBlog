@@ -9,7 +9,7 @@
 			:ellipsis="false"
 			@select="handleSelect"
 		>
-			<img src="https://vuejs.org/images/logo.png" alt="Vue logo" />
+			<img src="favicon.png" />
 			<div class="flex-grow" />
 			<el-menu-item index="/"
 				><el-icon><HomeFilled /></el-icon>主页</el-menu-item
@@ -38,8 +38,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
 	background-color: transparent;
 }
 #header img {
-	height: 40px;
-	margin-top: 10px;
+	height: 5vh;
 }
 #header {
 	height: 100%;

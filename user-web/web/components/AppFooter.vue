@@ -1,8 +1,5 @@
 <template>
-	<div class="footer">
-		© 2021-2022
-		<a href="www.baidu.com" target="_blank">百度</a>
-	</div>
+	<div class="footer">© 星河的博客 2023</div>
 </template>
 
 <style>
