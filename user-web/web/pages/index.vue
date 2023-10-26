@@ -11,10 +11,10 @@
 		</el-carousel-item>
 	</el-carousel>
 	<el-row :gutter="10" justify="center" style="max-width: 100cw">
-		<el-col :xs="24" :sm="18" :md="12" :lg="9">
+		<el-col :xs="24" :sm="24" :md="24" :lg="8">
 			<SomeArticle />
 		</el-col>
-		<el-col :xs="0" :sm="18" :md="24" :lg="5">
+		<el-col :xs="0" :sm="24" :md="24" :lg="4">
 			<RightMain />
 		</el-col>
 	</el-row>

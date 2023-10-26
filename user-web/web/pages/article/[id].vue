@@ -1,7 +1,7 @@
 <template>
 	<main>
 		<el-row :gutter="10" justify="center">
-			<el-col :xs="0">
+			<el-col :sm="24" :md="4" :lg="4">
 				<div class="aside">
 					<ElCard shadow="never">
 						<template #header>
@@ -15,7 +15,7 @@
 					</ElCard>
 				</div>
 			</el-col>
-			<el-col :xs="24">
+			<el-col :sm="24" :md="10" :lg="10">
 				<div class="article">
 					<MdPreview
 						:preview-theme="preview_theme"
