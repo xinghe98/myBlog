@@ -24,16 +24,16 @@ export default defineConfig({
 		},
 	},
 	server: {
-		/* proxy: {
-      // 字符串简写写法
-      // 选项写法
-      "/api": {
-        target: "http://124.71.70.42:3000/api",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    }, */
-		host: "0.0.0.0",
+		proxy: {
+			// 字符串简写写法
+			// 选项写法
+			"/api": {
+				target: "http://127.0.0.1:3001/api",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, ""),
+			},
+		},
+		// host: "0.0.0.0",
 	},
 	build: {
 		assetsDir: "./static",
@@ -57,7 +57,6 @@ export default defineConfig({
 				manualChunks: {
 					// 拆分代码，这个就是分包，配置完后自动按需加载，现在还比不上webpack的splitchunk，不过也能用了。
 					vue: ["vue", "vue-router"],
-					echarts: ["echarts"],
 					// echarts: ['echarts'],
 				},
 			},
