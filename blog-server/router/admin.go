@@ -11,8 +11,8 @@ func AdminRouter(r *gin.Engine) *gin.Engine {
 	admin := r.Group("/admin/")
 
 	{
-		admin.POST("regist", controller.AdminResAndLogin.Sigup) // 注册用户
-		admin.POST("login", controller.AdminResAndLogin.Login)  // 登录
+		// admin.POST("regist", controller.AdminResAndLogin.Sigup) // 注册用户
+		admin.POST("login", controller.AdminResAndLogin.Login) // 登录
 	}
 	// 文章相关
 	article := r.Group("/article/")
