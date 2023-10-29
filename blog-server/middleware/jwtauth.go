@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"myBlogServer/v1/httpresp"
 	"myBlogServer/v1/util"
 	"net/http"
@@ -29,14 +28,6 @@ func JwtAuth() gin.HandlerFunc {
 		roles := claims.Roles
 		if roles == "" {
 			httpresp.ResOthers(ctx, http.StatusLocked, nil, "无权限")
-			ctx.Abort()
-			return
-		}
-		ip := claims.Ip
-		if ip != ctx.ClientIP() {
-			fmt.Println(ip)
-			fmt.Println(ctx.ClientIP())
-			httpresp.ResOthers(ctx, http.StatusUnauthorized, nil, "意外错误，请重新登录")
 			ctx.Abort()
 			return
 		}

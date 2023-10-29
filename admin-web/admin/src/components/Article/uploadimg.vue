@@ -1,7 +1,7 @@
 <template>
 	<el-upload
 		:headers="headers"
-		action="http://127.0.0.1:3001/img/upload"
+		action="http://admin.xinqingnian.icu/img/upload"
 		ref="upload"
 		list-type="picture-card"
 		:on-exceed="handleExceed"

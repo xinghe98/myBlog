@@ -9,7 +9,7 @@
 			:ellipsis="false"
 			@select="handleSelect"
 		>
-			<img src="favicon.png" />
+			<img src="/favicon.png" />
 			<div class="flex-grow" />
 			<el-menu-item index="/"
 				><el-icon><HomeFilled /></el-icon>主页</el-menu-item
