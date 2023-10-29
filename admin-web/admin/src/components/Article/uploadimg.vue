@@ -1,7 +1,7 @@
 <template>
 	<el-upload
 		:headers="headers"
-		action="http://admin.xinqingnian.icu/img/upload"
+		:action="action"
 		ref="upload"
 		list-type="picture-card"
 		:on-exceed="handleExceed"
@@ -33,6 +33,8 @@ import { ElMessage, UploadInstance, genFileId } from "element-plus";
 import type { UploadProps, UploadRawFile } from "element-plus";
 import request from "@/util/request";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+const action = baseUrl + "/img/upload";
 const disabled = ref(false);
 const limit = ref(1);
 const upload = ref<UploadInstance>();

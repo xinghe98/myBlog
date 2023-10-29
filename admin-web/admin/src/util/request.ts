@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const request = axios.create({
-	 baseURL: "/api",
+	baseURL: baseUrl,
 });
 
 request.interceptors.request.use(

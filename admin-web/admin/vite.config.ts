@@ -24,7 +24,7 @@ export default defineConfig({
 		},
 	},
 	server: {
-		proxy: {
+		/* proxy: {
 			// 字符串简写写法
 			// 选项写法
 			"/api": {
@@ -32,8 +32,8 @@ export default defineConfig({
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api/, ""),
 			},
-		},
-		// host: "0.0.0.0",
+		}, */
+		host: "0.0.0.0",
 	},
 	build: {
 		assetsDir: "./static",
