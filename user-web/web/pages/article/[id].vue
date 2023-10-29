@@ -1,6 +1,41 @@
 <template>
-	<main>
+	<div class="article">
 		<el-row :gutter="10" justify="center">
+			<el-col :sm="24" :md="10" :lg="10">
+				<el-col>
+					<!--手机端用抽屉显示文章目录-->
+					<el-affix>
+						<el-button
+							style="margin-top: 15%"
+							class="hidden-sm-and-up"
+							type="primary"
+							@click="drawer = true"
+							round
+						>
+							目录
+						</el-button>
+					</el-affix>
+					<client-only>
+						<el-drawer size="80%" v-model="drawer" title="目录" :with-header="false">
+							<client-only>
+								<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
+							</client-only> </el-drawer
+					></client-only>
+				</el-col>
+				<MdPreview
+					:preview-theme="preview_theme"
+					:code-theme="code_theme"
+					:editor-id="md_moudle"
+					:model-value="article.content"
+					style="
+						border-radius: 5px 5px 8px 8px;
+						box-shadow: var(--card-box-shadow) !important;
+						background: rgba(255, 255, 255, 0.3);
+						transition: all 0.3s;
+						padding: 20px;
+					"
+				/>
+			</el-col>
 			<el-col :sm="24" :md="4" :lg="4">
 				<ElCard shadow="never" class="hidden-sm-and-down">
 					<template #header>
@@ -13,45 +48,8 @@
 					</client-only>
 				</ElCard>
 			</el-col>
-			<el-col :sm="24" :md="10" :lg="10">
-				<div class="article">
-					<el-col>
-						<!--手机端用抽屉显示文章目录-->
-						<el-affix>
-							<el-button
-								style="margin-top: 15%"
-								class="hidden-sm-and-up"
-								type="primary"
-								@click="drawer = true"
-								round
-							>
-								目录
-							</el-button>
-						</el-affix>
-						<client-only>
-							<el-drawer size="80%" v-model="drawer" title="目录" :with-header="false">
-								<client-only>
-									<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
-								</client-only> </el-drawer
-						></client-only>
-					</el-col>
-					<MdPreview
-						:preview-theme="preview_theme"
-						:code-theme="code_theme"
-						:editor-id="md_moudle"
-						:model-value="article.content"
-						style="
-							border-radius: 5px 5px 8px 8px;
-							box-shadow: var(--card-box-shadow) !important;
-							background: rgba(255, 255, 255, 0.3);
-							transition: all 0.3s;
-							padding: 20px;
-						"
-					/>
-				</div>
-			</el-col>
 		</el-row>
-	</main>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -90,6 +88,9 @@ const article = (data.value!.data as articlesData<article>).articles;
 </script>
 
 <style scoped>
+.article {
+	margin-top: 5.5vh;
+}
 .el-card ::v-deep(.el-card__body) {
 	max-height: 80vh;
 	overflow: auto;

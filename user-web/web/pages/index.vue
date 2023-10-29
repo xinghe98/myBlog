@@ -1,5 +1,5 @@
 <template>
-	<el-carousel height="50vh" :interval="8000" arrow="hover">
+	<el-carousel height="50vh" :interval="8000" arrow="always">
 		<el-carousel-item v-for="data in headline" :key="data.ID">
 			<a :href="`/article/${data.ID}`" target="_blank">
 				<img
