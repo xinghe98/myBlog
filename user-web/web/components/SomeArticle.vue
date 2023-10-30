@@ -1,4 +1,5 @@
 <template>
+	<el-empty v-if="isEmpty" description="这个标签里居然什么都没有" />
 	<el-card shadow="hover" v-for="item in postData" :key="item.ID">
 		<el-image fit="cover" style="border-radius: 5px" :src="`${item.image}`"></el-image>
 		<div class="cardofinfo">
@@ -55,6 +56,13 @@ type artdata = {
 	headimg: string;
 	UpdatedAt: string;
 };
+
+const isEmpty = computed(() => {
+	if (postData.value.length === 0) {
+		return true;
+	}
+	return false;
+});
 const route = useRoute();
 const name = route.params.tag;
 let dataurl = `/tags/${name}?page=1&limit=10`;
@@ -77,6 +85,11 @@ total.value = (data.value!.data as articlesData<artdata[]>).total;
 </script>
 
 <style scoped>
+.el-empty {
+	display: flex;
+	justify-content: center;
+}
+
 a {
 	color: #000;
 	text-decoration: none;

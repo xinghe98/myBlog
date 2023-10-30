@@ -1,5 +1,9 @@
 <template>
-	<PageHeaders style="background-image: url('https://mrzym.gitee.io/blogimg/cover/cute.jpg')">
+	<PageHeaders
+		style="
+			background-image: url('https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/416969.jpg');
+		"
+	>
 		<span>博客时间线</span>
 	</PageHeaders>
 	<main class="main">

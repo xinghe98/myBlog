@@ -43,7 +43,7 @@
 							<span style="font-size: 18px; font-weight: 600">文章目录</span>
 						</div>
 					</template>
-					<client-only>
+					<client-only fallback="目录生成中...">
 						<MdCatalog :editorId="md_moudle" :scrollElement="scrollElement" />
 					</client-only>
 				</ElCard>

@@ -15,7 +15,7 @@
 	position: relative;
 	background-image: url("https://blog-1308532731.cos.ap-guangzhou.myqcloud.com/400246.jpg");
 	background-color: #8a7e90;
-	background-position: 0% 30%;
+	background-position: 0% 13%;
 	background-size: cover;
 }
 
