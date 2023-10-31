@@ -1,6 +1,9 @@
 {
 	"name": "nuxt-app",
 	"private": true,
+	"version": "0.1.1",
+	"author": "xinghe98",
+	"license": "MIT",
 	"type": "module",
 	"scripts": {
 		"build": "nuxt build",
