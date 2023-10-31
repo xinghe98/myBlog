@@ -58,6 +58,11 @@ type artdata = {
 };
 
 const isEmpty = computed(() => {
+	if (postData.value === null) {
+		throw createError({
+			statusCode: 404,
+		});
+	}
 	if (postData.value.length === 0) {
 		return true;
 	}

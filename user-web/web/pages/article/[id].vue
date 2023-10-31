@@ -84,6 +84,11 @@ interface article {
 const md_moudle = "preview-only";
 
 const { data } = await request<article>("/article/" + id);
+if (data.value! === null) {
+	throw createError({
+		statusCode: 404,
+	});
+}
 const article = (data.value!.data as articlesData<article>).articles;
 </script>
 
